@@ -62,6 +62,18 @@ h2{font-size:clamp(2.3rem,7vw,3.6rem)}
 #livro{margin:0 auto;width:min(100%,calc(84vh * 1.414));aspect-ratio:1588/1123;touch-action:pan-y}
 @media (max-width:899px){#livro{width:min(100%,calc(86vh * .707));aspect-ratio:794/1123}}
 @media (min-width:900px){#palco{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+/* Computador: a revista fechada fica no centro, com os avisos nas bordas da capa. */
+#livro.capa{transform:translateX(-25%)}
+#livro.fim{transform:translateX(25%)}
+#livro.move{transition:transform .6s cubic-bezier(.3,.7,.25,1)}
+@media (prefers-reduced-motion:reduce){#livro.move{transition:none}}
+.borda{display:none}
+@media (min-width:900px){
+  .borda{display:block;position:absolute;top:50%;margin:0;color:var(--ouro);writing-mode:vertical-rl;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .35s ease}
+  .borda-e{right:calc(50% + var(--meia,0px) + 28px);transform:translateY(-50%) rotate(180deg)}
+  .borda-d{left:calc(50% + var(--meia,0px) + 28px);transform:translateY(-50%)}
+  #palco.na-capa .borda{opacity:1}
+}
 .pagina{background:var(--papel);overflow:hidden}
 .pagina>div{position:relative;width:100%;height:100%}
 .pagina img{display:block;width:100%;height:100%;pointer-events:none;user-select:none;-webkit-user-drag:none}
@@ -215,6 +227,8 @@ form{display:grid;gap:14px}
 <section class="mesa" id="revista" aria-label="Revista Cherie Be">
   <div class="w"><div class="atalhos" id="atalhos" role="group" aria-label="Ir direto para"></div></div>
   <div id="palco"><div id="livro"></div>
+    <p class="borda borda-e rotulo">Folheie a revista da Cherie Be</p>
+    <p class="borda borda-d rotulo">Arraste para virar a página</p>
     <div id="gesto" aria-hidden="true" hidden><svg viewBox="0 0 48 62" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="9" r="8" fill="none" stroke="#F4EFE7" stroke-width="1.5" opacity=".8"/><path d="M15.5 9a5.5 5.5 0 0 1 11 0v17.5l10.2 2.3c3.6.8 6 4.2 5.5 7.9l-1.6 12.1c-.6 4.7-4.6 8.2-9.4 8.2H21.6c-3.2 0-6.2-1.6-7.9-4.3L5.6 39.9c-1.3-2.1-.6-4.8 1.5-6 1.9-1.1 4.3-.6 5.6 1.1l2.8 3.6z" fill="#F4EFE7" stroke="#1E1915" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Arraste</span></div>
   </div>
   <div class="w"><div class="folhear"><button id="ant" type="button" aria-label="Página anterior">&#8249;</button><span id="contador" aria-live="polite">1 / 8</span><button id="prox" type="button" aria-label="Próxima página">&#8250;</button></div><p class="toque rotulo">Toque no serviço para agendar</p></div>
@@ -383,6 +397,17 @@ if(window.St&&St.PageFlip){
   gesto.hidden=visto;
   const somegesto=()=>{if(gesto.hidden)return;gesto.hidden=true;try{localStorage.setItem('cheriebe_gesto','1')}catch(e){}};
   flip.on('flip',e=>{somegesto();marca(e.data);livro.classList.remove('pisca');void livro.offsetWidth;livro.classList.add('pisca')});marca(0);
+  /* Computador (duas páginas): capa e contracapa ficam sozinhas, então a revista desliza para o centro. */
+  const palcoEl=document.getElementById('palco');
+  function enquadra(){
+    const duplo=flip.getOrientation()==='landscape',n=flip.getCurrentPageIndex();
+    palcoEl.style.setProperty('--meia',livro.offsetWidth/4+'px');
+    livro.classList.toggle('capa',duplo&&n===0);livro.classList.toggle('fim',duplo&&n===total-1);
+    palcoEl.classList.toggle('na-capa',duplo&&n===0);
+  }
+  flip.on('changeState',e=>{if(e.data==='flipping'){livro.classList.remove('capa','fim');palcoEl.classList.remove('na-capa')}else if(e.data==='read')enquadra()});
+  flip.on('changeOrientation',enquadra);addEventListener('resize',enquadra);enquadra();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>livro.classList.add('move')));
   ant.onclick=()=>voltar('bottom');prox.onclick=()=>flip.flipNext('bottom');
   addEventListener('keydown',e=>{if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;if(e.key==='ArrowRight')flip.flipNext('bottom');if(e.key==='ArrowLeft')flip.flipPrev('bottom')});
   /* Os serviços são links que ocupam a linha inteira: deslizar por cima deles também vira a página. */
