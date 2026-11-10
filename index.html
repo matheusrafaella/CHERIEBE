@@ -15,7 +15,7 @@
 <meta property="og:image:height" content="1685">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cherie Be - Unhas, Cílios e Sobrancelhas">
-<link rel="icon" href="selo.png?v=3" type="image/png">
+<link rel="icon" href="selo.png?v=4" type="image/png">
 <link rel="manifest" href="manifest.webmanifest?v=4">
 <link rel="apple-touch-icon" href="icones/apple-180.png?v=4">
 <meta name="theme-color" content="#F4EFE7">
@@ -122,20 +122,18 @@ h2{font-size:clamp(2.3rem,7vw,3.6rem)}
 .preco small{font:400 .72rem var(--texto);margin-right:4px}
 
 /* área da cliente */
-.cliente{background:var(--areia)}
+.cliente{background:var(--papel);border-top:1px solid var(--fio)}
 .cliente .w{padding-block:56px;display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:860px){.cliente .w{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start;gap:48px}}
 .cliente .texto{display:grid;gap:14px}
 .cliente .texto p{margin:0;max-width:44ch}
-.cliente #simular{width:100%;max-width:44ch}
-.como{max-width:44ch}
-.como summary{cursor:pointer;font:500 .78rem var(--texto);letter-spacing:.16em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;list-style:none;padding:6px 0}
-.como summary::-webkit-details-marker{display:none}
-.como summary::after{content:" +"}
-.como[open] summary::after{content:" −"}
-.como[open]{display:grid;gap:12px}
+.ck-cab{border-bottom:1px solid var(--tinta);padding-bottom:14px}
+.ck-sub{color:var(--cera);margin-top:6px!important}
+.ck-passos{list-style:none;margin:0;padding:0;max-width:44ch}
+.ck-passos li{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:baseline;padding:12px 0;border-bottom:1px solid var(--fio)}
+.ck-passos b{font:400 1.35rem/1 var(--display);font-variant-numeric:lining-nums}
 .passos{margin:0;padding-left:1.2em;display:grid;gap:6px;max-width:44ch}
-.cartao{background:var(--papel);padding:24px;display:grid;gap:18px}
+.cartao{background:#FFFDF9;border:1px solid var(--fio);padding:24px;display:grid;gap:18px}
 .cartao h3{font:400 1.7rem/1.1 var(--display);margin:0}
 form{display:grid;gap:14px}
 .campo{display:grid;gap:6px}
@@ -318,7 +316,7 @@ body.com-banner{padding-bottom:100px}
 @keyframes cupom{to{opacity:1;transform:translate(-50%,-62%) scale(1) rotate(-4deg)}}
 .presente.ja .tampa,.presente.ja .brilho,.presente.ja .cupom{animation-duration:0s;animation-delay:0s}
 @media (prefers-reduced-motion:reduce){.px,.presente.balanca .px{animation:none}}
-.meta-presente{overflow:hidden;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;background:var(--bege);padding:6px 16px 6px 4px}
+.meta-presente{overflow:hidden;border:1px solid var(--bege);display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;background:var(--papel);padding:6px 16px 6px 4px}
 .meta-presente p{margin:0}
 .mp-t{font:italic 400 1.3rem/1.15 var(--display);margin:2px 0!important}
 .mp-s{color:var(--suave);font-size:.9rem}
@@ -399,12 +397,10 @@ body.com-banner{padding-bottom:100px}
 
 <section class="cliente" id="cliente"><div class="w">
   <div class="texto">
-    <h2>Check-in Cherie</h2>
-    <button class="btn cheio" id="simular" type="button">Escanear o QR do salão</button>
-    <details class="como"><summary>Como funciona</summary>
-      <p>A cada visita você ganha um selo no seu cartão. Completou dez, o próximo momento sai com 20% off.</p>
-      <ol class="passos"><li>Crie seu cartão com nome e WhatsApp.</li><li>No salão, aponte a câmera para o QR do balcão.</li><li>Vale um selo por dia.</li></ol>
-    </details>
+    <div class="ck-cab"><h2>Check-in Cherie</h2></div>
+    <p class="rotulo ck-sub">Como funciona</p>
+    <p>A cada visita você ganha um selo no seu cartão. Completou dez, o próximo momento sai com 20% off.</p>
+    <ol class="ck-passos"><li><b>01</b><span>Crie seu cartão com nome e WhatsApp.</span></li><li><b>02</b><span>No salão, aponte a câmera para o QR do balcão.</span></li><li><b>03</b><span>Vale um selo por dia.</span></li></ol>
   </div>
   <div class="cartao">
     <form id="cadastro" novalidate>
@@ -416,7 +412,7 @@ body.com-banner{padding-bottom:100px}
       <p class="aviso erro" id="erro-cadastro" role="alert"></p>
     </form>
     <div class="criando" id="criando" hidden role="status" aria-live="polite">
-      <img src="selo.png?v=3" alt="">
+      <img src="selo.png?v=4" alt="">
       <ol><li>Carregando dados...</li><li>Criando cartão Cherie...</li><li class="fim"></li></ol>
     </div>
     <div id="cartela" hidden>
@@ -427,6 +423,7 @@ body.com-banner{padding-bottom:100px}
           <div class="presente" id="presente-cartao" aria-hidden="true"></div>
           <div><p class="rotulo" id="mp-r">Visita 10</p><p class="mp-t" id="mp-t">Um presente te espera.</p><p class="mp-s" id="mp-s"></p></div>
         </div>
+        <button class="btn cheio" id="simular" type="button">Escanear o QR do salão</button>
         <p class="aviso" id="aviso-selo" role="status"></p>
         <div class="premio" id="premio" hidden>
           <a class="btn cheio" id="resgatar" target="_blank" rel="noopener" href="#">Resgatar no WhatsApp</a>
@@ -458,7 +455,7 @@ body.com-banner{padding-bottom:100px}
 
 <div id="festa" hidden role="dialog" aria-modal="true" aria-labelledby="festa-n">
   <div class="festa-cx">
-    <div class="festa-selo" id="festa-selo"><img id="festa-img" src="selo.png?v=3" alt=""></div>
+    <div class="festa-selo" id="festa-selo"><img id="festa-img" src="selo.png?v=4" alt=""></div>
     <div class="presente grande" id="festa-presente" aria-hidden="true"></div>
     <p class="rotulo sobe" id="festa-rotulo">Visita 1</p>
     <p class="festa-n sobe" id="festa-n"></p>
@@ -675,7 +672,7 @@ function desenhar(vis,chegou,revela){
   const g=$('selos');g.textContent='';
   for(let i=0;i<META;i++){const v=document.createElement('div');v.className='vaga';v.style.setProperty('--i',i);
     if(i===META-1&&i>=n)v.innerHTML=ICO_PRESENTE;else v.textContent=i+1;
-    if(i<n){v.classList.add('cheia');const c=new Image();c.src='selo.png?v=3';c.alt='';if(i===chegou)c.className='chegou';v.appendChild(c)}
+    if(i<n){v.classList.add('cheia');const c=new Image();c.src='selo.png?v=4';c.alt='';if(i===chegou)c.className='chegou';v.appendChild(c)}
     g.appendChild(v)}
   const falta=META-n,pc=$('presente-cartao');
   pc.classList.toggle('aberto',n>=META);pc.classList.toggle('ja',n>=META);pc.classList.remove('balanca');
@@ -701,7 +698,7 @@ const chuva=(()=>{const c=document.createElement('canvas');c.id='chuva';c.setAtt
   return{estouro(px,py,n){for(let i=0;i<n;i++){const an=Math.random()*6.283,v=2+Math.random()*8;p(px,py,Math.cos(an)*v,Math.sin(an)*v-3.5)}ligar()},chover(ms){ate=performance.now()+ms;ligar()}}})();
 /* O selo sai da vaga, cresce até o centro com confete, mostra o progresso e volta para o cartão. */
 let festaTimer=0,festaAberta=false;
-function voador(r){const v=new Image();v.id='voador';v.src='selo.png?v=3';v.alt='';v.style.cssText='left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px';document.body.appendChild(v);return v}
+function voador(r){const v=new Image();v.id='voador';v.src='selo.png?v=4';v.alt='';v.style.cssText='left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px';document.body.appendChild(v);return v}
 function alvo(vaga,a){const v=vaga.getBoundingClientRect();return{dx:v.left-v.width*.1-a.left,dy:v.top-v.height*.1-a.top,s:v.width*1.2/a.width,cx:v.left+v.width/2,cy:v.top+v.height/2}}
 function festejar(n){
   const f=$('festa'),sel=$('festa-selo'),cx=f.querySelector('.festa-cx'),cheio=n>=META,de=(n-1)*100/META,ate=n*100/META;
