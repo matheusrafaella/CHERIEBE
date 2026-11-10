@@ -1,0 +1,17 @@
+{
+  "name": "Cherie Be",
+  "short_name": "Cherie Be",
+  "description": "Revista de procedimentos, agendamento pelo WhatsApp e cartão fidelidade da Cherie Be.",
+  "lang": "pt-BR",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1E1915",
+  "theme_color": "#F4EFE7",
+  "icons": [
+    { "src": "icones/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

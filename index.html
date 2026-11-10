@@ -8,6 +8,12 @@
 <meta property="og:description" content="Revista de procedimentos, pacotes e cartão fidelidade.">
 <meta property="og:image" content="pages/p01.jpg">
 <link rel="icon" href="selo.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icones/apple-180.png">
+<meta name="theme-color" content="#F4EFE7">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cherie Be">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Cherie Be Revista</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@400;500&display=swap">
@@ -180,6 +186,31 @@ form{display:grid;gap:14px}
 .mira.ok i{animation:none;opacity:0}
 #leitor .btn{position:relative;border-color:var(--ouro);color:var(--papel);background:rgba(30,25,21,.5)}
 #leitor :focus-visible{outline-color:var(--papel)}
+.leitor-cx{z-index:1}
+.elo.sair{justify-self:center;font-size:.85rem}
+.fechar-x{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:transparent;color:inherit;font:300 2rem/1 var(--texto);cursor:pointer}
+#leitor .fechar-x{position:fixed;z-index:2;top:max(10px,env(safe-area-inset-top,0px));right:max(10px,env(safe-area-inset-right,0px));color:var(--papel);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+
+/* app na tela inicial */
+.app-instalar{border-bottom:1px solid var(--fio)}
+.app-instalar .w{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 16px;align-items:center;padding-block:22px}
+.app-instalar img{width:56px;height:56px;border-radius:14px}
+.app-instalar p{margin:0}
+.app-t{font:italic 400 1.45rem/1.15 var(--display)}
+.app-s{color:var(--suave);font-size:.92rem;margin-top:4px!important}
+.app-instalar .btn{grid-column:1/-1}
+@media (min-width:600px){.app-instalar .w{grid-template-columns:auto minmax(0,1fr) auto}.app-instalar .btn{grid-column:auto}}
+#guia{position:fixed;inset:0;z-index:195;background:rgba(30,25,21,.72);display:grid;align-items:end;justify-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:surge .25s ease both}
+@media (min-width:600px){#guia{align-items:center}}
+.guia-cx{position:relative;width:min(100%,440px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--papel);color:var(--tinta);padding:24px 22px 22px;display:grid;gap:16px}
+.guia-cx p{margin:0}
+.guia-cx h3{font:italic 400 1.7rem/1.1 var(--display);margin:0;padding-right:36px}
+.guia-cx ol{margin:0;padding:0;list-style:none;counter-reset:p;display:grid;gap:12px}
+.guia-cx li{counter-increment:p;display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start}
+.guia-cx li::before{content:counter(p);width:28px;height:28px;border-radius:50%;border:1px solid var(--cera);display:grid;place-items:center;font:500 .8rem var(--texto);color:var(--cera)}
+.guia-cx li svg{width:18px;height:18px;vertical-align:-3px}
+.guia-acoes{display:grid;gap:8px}
+.guia-acoes:empty{display:none}
 #voador{position:fixed;z-index:210;margin:0;max-width:none;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));transform-origin:0 0}
 .premio{border-top:1px solid var(--tinta);padding-top:18px;display:grid;gap:12px}
 .premio p{margin:0}
@@ -234,6 +265,11 @@ form{display:grid;gap:14px}
   <div class="w"><div class="folhear"><button id="ant" type="button" aria-label="Página anterior">&#8249;</button><span id="contador" aria-live="polite">1 / 8</span><button id="prox" type="button" aria-label="Próxima página">&#8250;</button></div><p class="toque rotulo">Toque no serviço para agendar</p></div>
 </section>
 
+<section class="app-instalar" id="app" hidden aria-label="App Cherie Be"><div class="w">
+  <img src="icones/icone-192.png" alt="" width="56" height="56">
+  <div><p class="rotulo">App Cherie Be</p><p class="app-t">Reserve seu momento em um toque.</p><p class="app-s">Coloque a Cherie Be na tela do seu celular e agende sempre que lembrar.</p></div>
+  <button class="btn cheio" id="instalar" type="button">Adicionar à tela inicial</button>
+</div></section>
 <section class="combos" id="combos"><div class="w">
   <header><p class="rotulo">Pacotes Cherie</p><h2>Combine e pague menos.</h2></header>
   <ul class="lista" id="lista-combos" style="border-top:0"></ul>
@@ -243,7 +279,7 @@ form{display:grid;gap:14px}
   <div class="texto">
     <p class="rotulo">Área da cliente</p>
     <h2>Dez visitas, um selo de cera em cada.</h2>
-    <p>A cada visita você ganha um selo no seu cartão. Completou dez, o próximo momento sai com 40% off.</p>
+    <p>A cada visita você ganha um selo no seu cartão. Completou dez, o próximo momento sai com 20% off.</p>
     <ol class="passos"><li>Crie seu cartão com nome e WhatsApp.</li><li>No salão, aponte a câmera para o QR do balcão.</li><li>Vale um selo por dia.</li></ol>
   </div>
   <div class="cartao">
@@ -263,10 +299,11 @@ form{display:grid;gap:14px}
         <p class="aviso" id="aviso-selo" role="status"></p>
         <div class="premio" id="premio" hidden>
           <p class="rotulo">Cartão completo</p>
-          <p class="grande">40% off no seu próximo momento.</p>
+          <p class="grande">20% off no seu próximo momento.</p>
           <a class="btn cheio" id="resgatar" target="_blank" rel="noopener" href="#">Resgatar no WhatsApp</a>
           <button class="elo" id="novo-cartao" type="button">Já resgatei, começar um novo cartão</button>
         </div>
+        <button class="elo sair" id="sair" type="button">Não é você? Sair do cartão</button>
       </div>
     </div>
   </div>
@@ -301,8 +338,20 @@ form{display:grid;gap:14px}
   </div>
 </div>
 
+<div id="guia" hidden role="dialog" aria-modal="true" aria-labelledby="guia-t">
+  <div class="guia-cx">
+    <button class="fechar-x" id="guia-x" type="button" aria-label="Fechar">&times;</button>
+    <p class="rotulo">App Cherie Be</p>
+    <h3 id="guia-t"></h3>
+    <ol id="guia-passos"></ol>
+    <div class="guia-acoes" id="guia-acoes"></div>
+    <button class="btn cheio" id="guia-ok" type="button">Entendi</button>
+  </div>
+</div>
+
 <div id="leitor" hidden role="dialog" aria-modal="true" aria-labelledby="leitor-msg">
   <video id="leitor-video" playsinline muted hidden></video>
+  <button class="fechar-x" id="leitor-x" type="button" aria-label="Fechar o leitor">&times;</button>
   <div class="leitor-cx">
     <div class="mira" id="mira"><i></i></div>
     <p id="leitor-msg" role="status">Aponte para o QR do balcão.</p>
@@ -379,20 +428,30 @@ if(window.St&&St.PageFlip){
     document.querySelectorAll('#atalhos button[data-de]').forEach(b=>b.setAttribute('aria-pressed',i>=+b.dataset.de&&i<=+b.dataset.ate))};
   const at=document.getElementById('atalhos');
   ATALHOS.forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a[0];b.dataset.de=a[1];b.dataset.ate=a[2];b.setAttribute('aria-pressed','false');
-    b.onclick=()=>{if(flip.getCurrentPageIndex()!==a[1])flip.flip(a[1],'bottom')};at.appendChild(b)});
+    b.onclick=()=>vaiPara(a[1]);at.appendChild(b)});
   {const b=document.createElement('button');b.type='button';b.textContent='Pacotes';b.onclick=()=>ir('combos');at.appendChild(b)}
   /* No celular (uma página por vez) a biblioteca vira para trás fora da tela. Aqui a página anterior volta girando a partir da lombada. */
   const prevOriginal=flip.flipPrev.bind(flip);let voltando=false;
-  function voltar(canto){
-    const i=flip.getCurrentPageIndex();if(voltando||i<=0)return;
-    if(flip.getOrientation()!=='portrait'||reduz||!livro.animate)return prevOriginal(canto||'bottom');
+  /* alvo: página de destino ao voltar vários de uma vez (atalhos). */
+  function voltar(canto,alvo){
+    const i=flip.getCurrentPageIndex(),j=alvo===undefined?i-1:alvo;if(voltando||j<0||j>=i)return;
+    if(flip.getOrientation()!=='portrait')return alvo===undefined?prevOriginal(canto||'bottom'):flip.flip(j,canto||'bottom');
+    if(reduz||!livro.animate){flip.turnToPage(j);marca(j);return}
     voltando=true;const palco=document.getElementById('palco'),r=livro.getBoundingClientRect(),pr=palco.getBoundingClientRect();
     const v=document.createElement('div');v.id='volta';v.style.cssText='left:'+(r.left-pr.left)+'px;top:'+(r.top-pr.top)+'px;width:'+r.width+'px;height:'+r.height+'px';
-    const im=new Image();im.src='pages/p'+String(ORDEM[i-1]+1).padStart(2,'0')+'.jpg?v=2';im.alt='';v.appendChild(im);palco.appendChild(v);
-    const fim=()=>{flip.turnToPage(i-1);marca(i-1);requestAnimationFrame(()=>{v.remove();voltando=false})};
+    const im=new Image();im.src='pages/p'+String(ORDEM[j]+1).padStart(2,'0')+'.jpg?v=2';im.alt='';v.appendChild(im);palco.appendChild(v);
+    const fim=()=>{flip.turnToPage(j);marca(j);requestAnimationFrame(()=>{v.remove();voltando=false})};
     im.animate([{transform:'rotateY(-104deg)'},{transform:'rotateY(-8deg)',offset:.82},{transform:'rotateY(0deg)'}],{duration:750,easing:'cubic-bezier(.35,.6,.25,1)',fill:'forwards'}).onfinish=fim;
   }
-  flip.flipPrev=voltar;
+  flip.flipPrev=c=>voltar(c);
+  /* Atalhos: no celular (uma página por vez) a biblioteca erra saltos de várias páginas, então o salto é feito aqui. */
+  function vaiPara(n){
+    const i=flip.getCurrentPageIndex();if(n===i||voltando||(flip.getState&&flip.getState()!=='read'))return;
+    if(flip.getOrientation()!=='portrait')return flip.flip(n,'bottom');
+    if(n<i)return voltar('bottom',n);
+    if(n>i+1){flip.turnToPage(n-1);marca(n-1)}
+    flip.flipNext('bottom');
+  }
   const gesto=document.getElementById('gesto');let visto=false;try{visto=!!localStorage.getItem('cheriebe_gesto')}catch(e){}
   gesto.hidden=visto;
   const somegesto=()=>{if(gesto.hidden)return;gesto.hidden=true;try{localStorage.setItem('cheriebe_gesto','1')}catch(e){}};
@@ -414,7 +473,7 @@ if(window.St&&St.PageFlip){
   let ini=null,ignora=false;
   livro.addEventListener('touchstart',e=>{const a=e.target.closest&&e.target.closest('a');ini=a?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true,capture:true});
   livro.addEventListener('touchend',e=>{if(!ini)return;const t=e.changedTouches[0],dx=t.clientX-ini.x,dy=t.clientY-ini.y;ini=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){ignora=true;setTimeout(()=>ignora=false,400);dx<0?flip.flipNext('bottom'):flip.flipPrev('bottom')}},{passive:true,capture:true});
-  livro.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(!a)return;if(ignora){e.preventDefault();e.stopPropagation();return}if(a.dataset.go!==undefined){e.preventDefault();flip.flip(+a.dataset.go,'bottom')}},true);
+  livro.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(!a)return;if(ignora){e.preventDefault();e.stopPropagation();return}if(a.dataset.go!==undefined){e.preventDefault();vaiPara(+a.dataset.go)}},true);
 }else{
   /* Sem a biblioteca de folhear, as páginas ficam empilhadas e continuam clicáveis. */
   livro.style.cssText='width:min(100%,640px);aspect-ratio:auto;display:grid;gap:12px';
@@ -453,7 +512,7 @@ function desenhar(vis,chegou){
     if(i<n){v.classList.add('cheia');const c=new Image();c.src='selo.svg';c.alt='';if(i===chegou)c.className='chegou';v.appendChild(c)}
     g.appendChild(v)}
   $('premio').hidden=n<META;
-  $('resgatar').href=wa('Oiee! Sou cliente fiel: completei meus 10 selos no site e ganhei 40% off. Meu nome é '+est.nome+' e quero agendar meu momento.');
+  $('resgatar').href=wa('Oiee! Sou cliente fiel: completei meus 10 selos no site e ganhei 20% off. Meu nome é '+est.nome+' e quero agendar meu momento.');
 }
 /* Confete dourado em tela cheia: estouro a partir de um ponto e chuva por alguns segundos. */
 const chuva=(()=>{const c=document.createElement('canvas');c.id='chuva';c.setAttribute('aria-hidden','true');c.hidden=true;document.body.appendChild(c);
@@ -479,7 +538,7 @@ function festejar(n){
   const vaga=$('selos').children[n-1];vaga.scrollIntoView({block:'center',behavior:'auto'});
   $('festa-rotulo').textContent=cheio?'Cartão completo':'Selo desbloqueado';
   $('festa-n').textContent=n+' de '+META+' selos';
-  $('festa-pct').textContent=cheio?'100% do progresso. Seus 40% off estão liberados.':de+'% do progresso';
+  $('festa-pct').textContent=cheio?'100% do progresso. Seus 20% off estão liberados.':de+'% do progresso';
   const b=$('festa-barra');b.style.transition='none';b.style.width=de+'%';
   sel.classList.remove('pousou');sel.classList.add('voando');cx.classList.remove('pronto');
   f.classList.remove('saindo');f.hidden=false;festaAberta=true;
@@ -511,7 +570,7 @@ let leitorStream=null,leitorLoop=0;
 const qrValido=t=>t.trim().replace('/index.html#','/#')===location.origin+location.pathname.replace(/index\.html$/,'')+'#selo';
 function travado(){
   if(!est.nome)return 'cadastro';
-  if(est.selos.length>=META)return 'Seu cartão já está completo. Resgate seus 40% off.';
+  if(est.selos.length>=META)return 'Seu cartão já está completo. Resgate seus 20% off.';
   if(est.selos.includes(hoje()))return 'O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';
   return '';
 }
@@ -542,7 +601,8 @@ async function abrirLeitor(){
     $('leitor-msg').textContent='Não foi possível abrir a câmera. Use a câmera do celular no QR do balcão.';
   }
 }
-$('leitor-fechar').onclick=fecharLeitor;
+$('leitor-fechar').onclick=fecharLeitor;$('leitor-x').onclick=fecharLeitor;
+addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('leitor').hidden)fecharLeitor();if(!$('guia').hidden)fecharGuia()});
 let carimbando=false;
 async function carimbar(){
   const av=$('aviso-selo');
@@ -552,7 +612,7 @@ async function carimbar(){
   carimbando=false;
   if(r.status==='sem_cadastro'){esquecer();desenhar();seloPendente=true;ir('cliente');$('nome').focus({preventScroll:true});return}
   aplicar(r);
-  if(r.status==='completo'){desenhar();av.textContent='Seu cartão já está completo. Resgate seus 40% off.';return}
+  if(r.status==='completo'){desenhar();av.textContent='Seu cartão já está completo. Resgate seus 20% off.';return}
   if(r.status==='ja_hoje'){desenhar();av.textContent='O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';return}
   av.textContent='';
   if(reduz){desenhar();av.textContent=est.selos.length>=META?'Décimo selo. Cartão completo.':'Selo '+est.selos.length+' de '+META+' no cartão.'}
@@ -574,6 +634,7 @@ $('cadastro').addEventListener('submit',async e=>{e.preventDefault();
   if(seloPendente){seloPendente=false;carimbar()}else $('aviso-selo').textContent=r.novo?'Cartão criado. Seu primeiro selo entra na próxima visita.':'Encontramos o seu cartão.';
 });
 $('simular').onclick=abrirLeitor;
+$('sair').onclick=()=>{esquecer();$('cadastro').reset();$('aviso-selo').textContent='';desenhar();$('nome').focus({preventScroll:true})};
 $('novo-cartao').onclick=async()=>{const av=$('aviso-selo');
   let r;try{r=await rpc('cartao_novo',{p_telefone:est.tel})}catch(e){av.textContent=SEM_CONEXAO;return}
   if(r.status==='sem_cadastro'){esquecer();desenhar();return}
@@ -587,6 +648,58 @@ desenhar();
     if(r.status==='ok')aplicar(r);else if(r.status==='sem_cadastro')esquecer();
     desenhar()}catch(e){}
 })();
+
+/* ---------- App na tela inicial ----------
+   Android/Chrome: o navegador oferece a instalação (beforeinstallprompt) e o botão abre direto.
+   iPhone: não existe instalação por botão; mostramos o caminho pelo Compartilhar.
+   Dentro do Instagram/Facebook/TikTok não dá para instalar: primeiro abrir no navegador. */
+const UA=navigator.userAgent;
+const IOS=/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),ANDROID=/Android/i.test(UA);
+const INTERNO=/Instagram|FBAN|FBAV|FB_IAB|FBIOS|TikTok|BytedanceWebview|musical_ly|Snapchat|LinkedInApp|Pinterest|Line\//i.test(UA);
+const instalado=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const LINK=location.origin+location.pathname;
+const ICO_COMP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4"/><path d="M7 10H5v11h14V10h-2"/></svg>';
+let pedido=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();pedido=e});
+addEventListener('appinstalled',()=>{$('app').hidden=true;fecharGuia()});
+$('app').hidden=instalado()||!(IOS||ANDROID);
+function abrirGuia(titulo,passos,acoes){
+  $('guia-t').textContent=titulo;
+  $('guia-passos').innerHTML=passos.map(p=>'<li><span>'+p+'</span></li>').join('');
+  const a=$('guia-acoes');a.textContent='';acoes.forEach(x=>a.appendChild(x));
+  $('guia').hidden=false;$('guia-ok').focus({preventScroll:true});
+}
+function fecharGuia(){if($('guia').hidden)return;$('guia').hidden=true;$('instalar').focus({preventScroll:true})}
+$('guia-x').onclick=fecharGuia;$('guia-ok').onclick=fecharGuia;
+$('guia').addEventListener('click',e=>{if(e.target===$('guia'))fecharGuia()});
+function botaoCopiar(){
+  const b=document.createElement('button');b.type='button';b.className='btn';b.textContent='Copiar o link do site';
+  b.onclick=async()=>{try{await navigator.clipboard.writeText(LINK);b.textContent='Link copiado. Cole no navegador.'}catch(e){b.textContent=LINK;b.style.textTransform='none'}};
+  return b;
+}
+$('instalar').onclick=async()=>{
+  if(pedido){const p=pedido;pedido=null;p.prompt();try{if((await p.userChoice).outcome==='accepted')$('app').hidden=true}catch(e){}return}
+  if(INTERNO&&IOS)return abrirGuia('Abra no Safari primeiro',[
+    'Toque nos três pontinhos <b>•••</b> no canto da tela.',
+    'Escolha <b>Abrir no navegador externo</b> (ou <b>Abrir no Safari</b>).',
+    'No Safari, toque de novo em <b>Adicionar à tela inicial</b> aqui no site.'],[botaoCopiar()]);
+  if(INTERNO&&ANDROID){
+    const a=document.createElement('a');a.className='btn cheio';a.textContent='Abrir no Chrome';
+    a.href='intent://'+location.host+location.pathname+'#Intent;scheme=https;package=com.android.chrome;end';
+    return abrirGuia('Abra no Chrome primeiro',[
+      'Toque em <b>Abrir no Chrome</b> aqui embaixo.',
+      'Se não abrir, toque nos três pontinhos <b>⋮</b> e escolha <b>Abrir no navegador</b>.',
+      'No Chrome, toque de novo em <b>Adicionar à tela inicial</b> aqui no site.'],[a,botaoCopiar()]);
+  }
+  if(IOS)return abrirGuia('Adicione em 3 toques',[
+    'Toque no botão <b>Compartilhar</b> '+ICO_COMP+'. No Safari ele fica na barra de baixo ou dentro do menu <b>•••</b>.',
+    'Role a lista e toque em <b>Adicionar à Tela de Início</b>.',
+    'Se aparecer <b>Abrir como App</b>, deixe ligado e toque em <b>Adicionar</b>.'],[]);
+  abrirGuia('Adicione em 3 toques',[
+    'Toque nos três pontinhos <b>⋮</b> no canto de cima do navegador.',
+    'Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.',
+    'Confirme em <b>Instalar</b>. O ícone da Cherie Be aparece na sua tela.'],[]);
+};
 </script>
 
 </body>
