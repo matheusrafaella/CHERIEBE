@@ -7,10 +7,10 @@
 <meta property="og:title" content="Cherie Be - Unhas, Cílios e Sobrancelhas">
 <meta property="og:site_name" content="Cherie Be">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://matheusrafaella.github.io/CHERIEBE/">
+<meta property="og:url" content="https://cheriebe.com.br/">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:description" content="Revista de procedimentos, pacotes e cartão fidelidade.">
-<meta property="og:image" content="https://matheusrafaella.github.io/CHERIEBE/pages/p01.jpg?v=2">
+<meta property="og:image" content="https://cheriebe.com.br/pages/p01.jpg?v=2">
 <meta property="og:image:width" content="1191">
 <meta property="og:image:height" content="1685">
 <meta name="twitter:card" content="summary_large_image">
@@ -748,7 +748,7 @@ function fecharFesta(n){
 /* Leitor de QR: abre a câmera traseira e só aceita o código do balcão deste site. */
 let leitorStream=null,leitorLoop=0,leitorPendente=false;
 /* Aceita o QR deste endereço e o do endereço atual do GitHub: os QRs impressos continuam valendo se o site mudar para um domínio próprio. */
-const QR_ACEITOS=[location.origin+location.pathname.replace(/index\.html$/,'')+'#selo','https://matheusrafaella.github.io/CHERIEBE/#selo'];
+const QR_ACEITOS=[location.origin+location.pathname.replace(/index\.html$/,'')+'#selo','https://cheriebe.com.br/#selo','https://matheusrafaella.github.io/CHERIEBE/#selo'];
 const qrValido=t=>QR_ACEITOS.includes(t.trim().replace('/index.html#','/#'));
 function travado(){
   if(!est.nome)return 'cadastro';
