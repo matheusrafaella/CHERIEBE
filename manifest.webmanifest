@@ -1,5 +1,5 @@
 {
-  "name": "Cherie Be",
+  "name": "Cherie Be - Unhas, Cílios e Sobrancelhas",
   "short_name": "Cherie Be",
   "description": "Revista de procedimentos, agendamento pelo WhatsApp e cartão fidelidade da Cherie Be.",
   "lang": "pt-BR",
@@ -11,19 +11,19 @@
   "theme_color": "#F4EFE7",
   "icons": [
     {
-      "src": "icones/icone-192.png?v=2",
+      "src": "icones/icone-192.png?v=3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icones/icone-512.png?v=2",
+      "src": "icones/icone-512.png?v=3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icones/maskable-512.png?v=2",
+      "src": "icones/maskable-512.png?v=3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
