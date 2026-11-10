@@ -349,7 +349,7 @@ const livro=document.getElementById('livro'),total=ORDEM.length;
 ORDEM.forEach((o,i)=>{const sp=SPOTS[o];
   const pg=document.createElement('div');pg.className='pagina';pg.dataset.density='soft';
   const box=document.createElement('div');
-  const im=new Image();im.src='pages/p'+String(o+1).padStart(2,'0')+'.jpg';im.alt='Página '+(i+1)+' da revista Cherie Be';im.draggable=false;box.appendChild(im);
+  const im=new Image();im.src='pages/p'+String(o+1).padStart(2,'0')+'.jpg?v=2';im.alt='Página '+(i+1)+' da revista Cherie Be';im.draggable=false;box.appendChild(im);
   sp.forEach(s=>{const a=document.createElement('a');a.setAttribute('aria-label',s.l||'Abrir');a.style.cssText='left:'+s.x+'%;top:'+s.y+'%;width:'+s.w+'%;height:'+s.t+'%';
     if(s.go!==undefined){a.href='#revista';a.dataset.go=s.go}
     else{a.href=s.h?s.h:wa(msgServico(s.s));a.target='_blank';a.rel='noopener';if(!s.h&&s.s)a.className='svc'}
@@ -374,7 +374,7 @@ if(window.St&&St.PageFlip){
     if(flip.getOrientation()!=='portrait'||reduz||!livro.animate)return prevOriginal(canto||'bottom');
     voltando=true;const palco=document.getElementById('palco'),r=livro.getBoundingClientRect(),pr=palco.getBoundingClientRect();
     const v=document.createElement('div');v.id='volta';v.style.cssText='left:'+(r.left-pr.left)+'px;top:'+(r.top-pr.top)+'px;width:'+r.width+'px;height:'+r.height+'px';
-    const im=new Image();im.src='pages/p'+String(ORDEM[i-1]+1).padStart(2,'0')+'.jpg';im.alt='';v.appendChild(im);palco.appendChild(v);
+    const im=new Image();im.src='pages/p'+String(ORDEM[i-1]+1).padStart(2,'0')+'.jpg?v=2';im.alt='';v.appendChild(im);palco.appendChild(v);
     const fim=()=>{flip.turnToPage(i-1);marca(i-1);requestAnimationFrame(()=>{v.remove();voltando=false})};
     im.animate([{transform:'rotateY(-104deg)'},{transform:'rotateY(-8deg)',offset:.82},{transform:'rotateY(0deg)'}],{duration:750,easing:'cubic-bezier(.35,.6,.25,1)',fill:'forwards'}).onfinish=fim;
   }
