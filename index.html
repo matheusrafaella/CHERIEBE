@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Cherie Be, Tucuruvi, São Paulo. Folheie a revista de procedimentos, toque no serviço e reserve seu momento pelo WhatsApp.">
+<meta property="og:title" content="Cherie Be">
+<meta property="og:description" content="Revista de procedimentos, pacotes e cartão fidelidade.">
+<meta property="og:image" content="pages/p01.jpg">
+<link rel="icon" href="selo.svg" type="image/svg+xml">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Cherie Be Revista</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@400;500&display=swap">
+<style>
+/* Layout: capa editorial curta em papel, a revista aberta sobre uma mesa escura, depois listas com fios como no catálogo impresso. Visual único da marca, sem tema escuro. */
+:root{
+  --papel:#F4EFE7; --tinta:#1E1915; --ouro:#D2B681; --areia:#C4AB8E; --bege:#E0DBCD;
+  --fio:#B9AC97; --suave:#6B6154; --cera:#8C6A3F; --cera-clara:#CDA96F; --cera-funda:#6A4E2C; --erro:#8A2B1D;
+  --display:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif;
+  --texto:'Jost','Helvetica Neue',Arial,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--papel);color:var(--tinta);font:400 1rem/1.55 var(--texto)}
+.w{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
+.rotulo{font:500 .72rem/1.3 var(--texto);letter-spacing:.22em;text-transform:uppercase}
+h1,h2{font-family:var(--display);font-style:italic;font-weight:400;line-height:1.02;margin:0;text-wrap:balance}
+h2{font-size:clamp(2.3rem,7vw,3.6rem)}
+
+/* topo */
+.topo .w{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.marca{display:block}
+.marca img{display:block;height:40px;width:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border:1px solid var(--tinta);background:transparent;color:var(--tinta);font:500 .8rem var(--texto);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--tinta);color:var(--papel)}
+.btn.cheio{background:var(--tinta);color:var(--papel)}
+.btn.cheio:hover{background:transparent;color:var(--tinta)}
+
+
+/* revista */
+.mesa{background:var(--tinta);color:var(--papel);padding-block:0 20px;overflow:hidden}
+@media (min-width:900px){.mesa{padding-block:22px 20px}}
+#palco{position:relative}
+#gesto{position:absolute;left:50%;bottom:34%;z-index:60;width:120px;margin-left:-60px;display:grid;justify-items:center;gap:8px;pointer-events:none;animation:arrasta 2.6s ease-in-out infinite}
+#gesto svg{width:58px;height:auto;filter:drop-shadow(0 4px 10px rgba(30,25,21,.6))}
+#gesto span{background:var(--tinta);color:var(--papel);padding:5px 12px;border-radius:99px;font:500 .68rem var(--texto);letter-spacing:.2em;text-transform:uppercase}
+@keyframes arrasta{0%{transform:translateX(95px);opacity:0}14%{opacity:1}68%{transform:translateX(-95px);opacity:1}86%,100%{transform:translateX(-95px);opacity:0}}
+.toque{margin:12px 0 0;text-align:center;color:var(--ouro)}
+.atalhos{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.atalhos::-webkit-scrollbar{display:none}
+@media (min-width:900px){.atalhos{justify-content:center;padding-block:0 18px}}
+.atalhos button{flex:0 0 auto;min-height:40px;padding:0 16px;border:1px solid rgba(210,182,129,.55);border-radius:99px;background:transparent;color:var(--papel);font:500 .74rem var(--texto);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.atalhos button[aria-pressed="true"]{background:var(--ouro);border-color:var(--ouro);color:var(--tinta)}
+.atalhos button:focus-visible{outline:2px solid var(--papel);outline-offset:2px}
+#volta{position:absolute;z-index:55;perspective:1900px;pointer-events:none}
+#volta img{display:block;width:100%;height:100%;max-width:none;transform-origin:left center;backface-visibility:hidden;box-shadow:18px 0 40px rgba(0,0,0,.55)}
+#volta::before{content:"";position:absolute;inset:0;background:#1E1915;opacity:0;animation:sombra .75s ease both}
+@keyframes sombra{0%{opacity:0}50%{opacity:.35}100%{opacity:.1}}
+#palco{margin:0 auto;max-width:1040px}
+#livro{margin:0 auto;width:min(100%,calc(84vh * 1.414));aspect-ratio:1588/1123;touch-action:pan-y}
+@media (max-width:899px){#livro{width:min(100%,calc(86vh * .707));aspect-ratio:794/1123}}
+@media (min-width:900px){#palco{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+.pagina{background:var(--papel);overflow:hidden}
+.pagina>div{position:relative;width:100%;height:100%}
+.pagina img{display:block;width:100%;height:100%;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.pagina a{position:absolute;display:block;-webkit-tap-highlight-color:transparent;outline-offset:-2px}
+.pagina a:hover{background:rgba(210,182,129,.16)}
+.pagina a:focus-visible{outline:2px solid var(--ouro)}
+#livro.pisca .pagina a.svc{animation:pisca 1.5s ease .35s 1}
+@keyframes pisca{0%,100%{background:rgba(210,182,129,0)}40%{background:rgba(210,182,129,.3)}}
+.folhear{display:flex;align-items:center;justify-content:center;gap:18px;padding-top:16px}
+.folhear button{width:46px;height:46px;border:1px solid var(--ouro);background:transparent;color:var(--papel);font:400 1.3rem/1 var(--texto);cursor:pointer}
+.folhear button:hover{background:var(--ouro);color:var(--tinta)}
+.folhear button:focus-visible{outline:2px solid var(--papel)}
+.folhear button:disabled{opacity:.35;cursor:default;background:transparent;color:var(--papel)}
+#contador{min-width:72px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* combos */
+.combos .w{padding-block:56px 48px;display:grid;gap:26px}
+.combos header{display:grid;gap:10px}
+.lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--tinta)}
+.lista>li>a,.lista .linha{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 18px;padding:18px 4px;border-bottom:1px solid var(--fio);text-decoration:none}
+.lista>li>a:hover,.lista .linha a:hover{background:var(--bege)}
+.lista .grupo{padding:22px 4px 8px;border-bottom:1px solid var(--tinta)}
+.lista li:first-child.grupo{padding-top:14px}
+.lista .duplo{display:flex;gap:6px}
+@media (max-width:520px){.lista .linha{grid-template-columns:minmax(0,1fr)}.lista .duplo{justify-content:flex-start;gap:18px}.lista .duplo a{justify-items:start;padding-left:0}.lista .duplo .preco em{text-align:left;max-width:none}}
+.lista .duplo a{display:grid;justify-items:center;align-content:start;gap:4px;padding:8px;text-decoration:none;min-width:64px}
+.preco em{display:block;max-width:11ch;font:400 .78rem/1.25 var(--texto);font-style:normal;color:var(--suave);text-align:center;white-space:normal}
+.lista strong{display:block;font:400 clamp(1.4rem,4.6vw,1.9rem)/1.15 var(--display)}
+.lista span{display:block;color:var(--suave)}
+.preco{font:400 clamp(1.7rem,6vw,2.4rem)/1 var(--display);white-space:nowrap;font-variant-numeric:lining-nums}
+.preco small{font:400 .72rem var(--texto);margin-right:4px}
+
+/* área da cliente */
+.cliente{background:var(--areia)}
+.cliente .w{padding-block:56px;display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.cliente .w{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start;gap:48px}}
+.cliente .texto{display:grid;gap:14px}
+.cliente .texto p{margin:0;max-width:44ch}
+.passos{margin:0;padding-left:1.2em;display:grid;gap:6px;max-width:44ch}
+.cartao{background:var(--papel);padding:24px;display:grid;gap:18px}
+.cartao h3{font:400 1.7rem/1.1 var(--display);margin:0}
+form{display:grid;gap:14px}
+.campo{display:grid;gap:6px}
+.campo label{font:500 .72rem var(--texto);letter-spacing:.18em;text-transform:uppercase}
+.campo input{font:400 1.05rem var(--texto);color:var(--tinta);background:transparent;border:0;border-bottom:1px solid var(--tinta);border-radius:0;padding:8px 0;min-width:0;width:100%}
+.campo input:focus-visible{outline:none;border-bottom-width:2px}
+.aceite{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:.9rem;color:var(--suave)}
+.aceite input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--tinta)}
+.aviso{margin:0;min-height:1.5em;font-weight:500}
+.aviso.erro{color:var(--erro)}
+.selos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.vaga{position:relative;aspect-ratio:1;border:1px dashed var(--fio);border-radius:50%;display:grid;place-items:center;font:500 .8rem var(--texto);color:var(--suave);font-variant-numeric:tabular-nums}
+.vaga.cheia{border-color:transparent;color:transparent}
+.vaga img{position:absolute;inset:-10%;width:120%;height:120%;max-width:none;filter:drop-shadow(0 3px 5px rgba(30,25,21,.4))}
+.vaga:nth-child(3n) img{rotate:14deg}
+.vaga:nth-child(3n+1) img{rotate:-10deg}
+.vaga img.chegou{animation:pouso .5s cubic-bezier(.2,1.7,.4,1)}
+@keyframes pouso{0%{scale:1.3}100%{scale:1}}
+.barra{height:6px;background:var(--bege);border-radius:99px;overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cera),var(--cera-clara));border-radius:99px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+#festa{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));background:rgba(30,25,21,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--papel);animation:surge .3s ease both}
+#festa.saindo{animation:some .4s ease both}
+@keyframes surge{from{opacity:0}to{opacity:1}}
+@keyframes some{from{opacity:1}to{opacity:0}}
+.festa-cx{display:grid;justify-items:center;gap:14px;width:min(100%,340px);text-align:center}
+.festa-cx>*{margin:0}
+.festa-selo{position:relative;width:min(62vw,230px);aspect-ratio:1;display:grid;place-items:center;margin-bottom:10px}
+.festa-selo::before{content:"";position:absolute;inset:-22%;border-radius:50%;background:radial-gradient(circle,rgba(246,228,174,.5),rgba(246,228,174,0) 66%);opacity:0}
+.festa-selo.pousou::before{animation:halo 2.2s ease-in-out infinite alternate both}
+.festa-selo::after{content:"";position:absolute;inset:6%;border-radius:50%;border:2px solid var(--ouro);opacity:0}
+.festa-selo.pousou::after{animation:onda 1s ease-out both}
+.festa-selo img{position:relative;width:100%;height:100%;filter:drop-shadow(0 16px 26px rgba(0,0,0,.6))}
+.festa-selo.pousou img{animation:pulso .6s cubic-bezier(.2,1.7,.4,1)}
+@keyframes pulso{0%{transform:scale(1.16)}100%{transform:scale(1)}}
+.festa-selo.voando img{visibility:hidden}
+@keyframes carimbo{0%{transform:scale(3.2) rotate(-30deg);opacity:0}48%{transform:scale(.88) rotate(6deg);opacity:1}72%{transform:scale(1.06) rotate(-2deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes halo{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1.08)}}
+@keyframes onda{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+@keyframes fagulha{0%{opacity:1;transform:rotate(var(--a)) translateY(-50px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateY(calc(var(--d) * -1px)) scale(.3)}}
+.festa-cx .sobe{opacity:0}
+.festa-cx.pronto .sobe{animation:sobe .5s ease both}
+@keyframes sobe{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.festa-cx .rotulo{color:var(--ouro);animation-delay:.1s}
+.festa-n{font:italic 400 clamp(2.1rem,9.5vw,2.9rem)/1 var(--display);animation-delay:.22s}
+.festa-cx .barra{width:100%;height:10px;background:rgba(244,239,231,.18);animation-delay:.34s}
+.festa-cx .barra i{background:linear-gradient(90deg,#BC964D,#F6E4AE)}
+#festa-pct{font-variant-numeric:tabular-nums;animation-delay:.46s}
+#festa-ok{margin-top:8px;border-color:var(--ouro);color:var(--papel);animation-delay:.9s}
+#festa-ok:hover{background:var(--ouro);color:var(--tinta)}
+#festa :focus-visible{outline-color:var(--papel)}
+#chuva{position:fixed;inset:0;width:100%;height:100%;max-width:none;z-index:220;pointer-events:none}
+#leitor{position:fixed;inset:0;z-index:190;background:var(--tinta);color:var(--papel);display:grid;place-items:center;overflow:hidden;animation:surge .25s ease both}
+#leitor video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.leitor-cx{position:relative;display:grid;justify-items:center;gap:22px;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));text-align:center}
+.leitor-cx p{margin:0;max-width:28ch;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.mira{position:relative;width:min(66vw,270px);aspect-ratio:1;box-shadow:0 0 0 100vmax rgba(30,25,21,.55);border-radius:18px;overflow:hidden;background:
+  linear-gradient(var(--ouro),var(--ouro)) 0 0/44px 4px,linear-gradient(var(--ouro),var(--ouro)) 0 0/4px 44px,
+  linear-gradient(var(--ouro),var(--ouro)) 100% 0/44px 4px,linear-gradient(var(--ouro),var(--ouro)) 100% 0/4px 44px,
+  linear-gradient(var(--ouro),var(--ouro)) 0 100%/44px 4px,linear-gradient(var(--ouro),var(--ouro)) 0 100%/4px 44px,
+  linear-gradient(var(--ouro),var(--ouro)) 100% 100%/44px 4px,linear-gradient(var(--ouro),var(--ouro)) 100% 100%/4px 44px;background-repeat:no-repeat}
+.mira i{position:absolute;left:8%;right:8%;top:0;height:3px;background:linear-gradient(90deg,transparent,#F6E4AE,transparent);box-shadow:0 0 14px 3px rgba(246,228,174,.7);animation:varre 1.6s ease-in-out infinite alternate}
+@keyframes varre{from{top:8%}to{top:92%}}
+.mira.ok{background-color:rgba(246,228,174,.35);transition:background-color .2s}
+.mira.ok i{animation:none;opacity:0}
+#leitor .btn{position:relative;border-color:var(--ouro);color:var(--papel);background:rgba(30,25,21,.5)}
+#leitor :focus-visible{outline-color:var(--papel)}
+#voador{position:fixed;z-index:210;margin:0;max-width:none;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));transform-origin:0 0}
+.premio{border-top:1px solid var(--tinta);padding-top:18px;display:grid;gap:12px}
+.premio p{margin:0}
+.premio .grande{font:italic 400 clamp(2rem,8vw,2.8rem)/1 var(--display)}
+.elo{background:none;border:0;padding:0;font:inherit;color:var(--suave);text-decoration:underline;cursor:pointer;justify-self:start}
+#simular{width:100%}
+.demo{border:1px dashed var(--suave);padding:14px;display:grid;gap:10px}
+.demo p{margin:0;font-size:.88rem;color:var(--suave)}
+.demo div{display:flex;flex-wrap:wrap;gap:8px}
+.demo .btn{min-height:40px;padding:0 14px;font-size:.72rem}
+
+/* como chegar */
+.chegar{background:var(--bege)}
+.chegar .w{padding-block:56px;display:grid;gap:36px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.chegar .w{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}}
+.chegar .onde{display:grid;gap:14px}
+.chegar .onde p{margin:0}
+.chegar .bairro{font-size:1.1rem}
+.acoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.horas{margin:12px 0 0;border-top:1px solid var(--tinta)}
+.horas>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 16px;padding:14px 0;border-bottom:1px solid var(--fio)}
+.horas dt{font-size:1.05rem}
+.horas dd{margin:0;font:400 1.45rem/1.2 var(--display);font-variant-numeric:lining-nums}
+
+/* rodapé */
+.rodape{background:var(--tinta);color:var(--papel)}
+.rodape .w{padding-block:52px 36px;display:grid;gap:32px}
+.rodape h2{font-size:clamp(2.6rem,9vw,4.4rem)}
+.rodape dl{margin:0;border-top:1px solid var(--ouro)}
+.rodape dl>div{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr);gap:4px 16px;padding:16px 0;border-bottom:1px solid rgba(210,182,129,.45)}
+@media (max-width:520px){.rodape dl>div{grid-template-columns:minmax(0,1fr)}}
+.rodape dt{color:var(--ouro);padding-top:.35em}
+.rodape dd{margin:0;font:400 1.35rem/1.3 var(--display)}
+.rodape dd a{text-decoration-color:var(--ouro);text-underline-offset:4px}
+.rodape dd small{display:block;font:400 .92rem/1.5 var(--texto);color:var(--bege)}
+.rodape :focus-visible{outline-color:var(--papel)}
+.rodape .fim{color:var(--ouro);margin:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="w">
+  <a class="marca" href="#revista" data-ir="revista"><img src="logo.svg" alt="Cherie Be" width="116" height="40"></a>
+  <a class="btn" href="#cliente" data-ir="cliente">Área da cliente</a>
+</div></header>
+
+<main>
+
+<section class="mesa" id="revista" aria-label="Revista Cherie Be">
+  <div class="w"><div class="atalhos" id="atalhos" role="group" aria-label="Ir direto para"></div></div>
+  <div id="palco"><div id="livro"></div>
+    <div id="gesto" aria-hidden="true" hidden><svg viewBox="0 0 48 62" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="9" r="8" fill="none" stroke="#F4EFE7" stroke-width="1.5" opacity=".8"/><path d="M15.5 9a5.5 5.5 0 0 1 11 0v17.5l10.2 2.3c3.6.8 6 4.2 5.5 7.9l-1.6 12.1c-.6 4.7-4.6 8.2-9.4 8.2H21.6c-3.2 0-6.2-1.6-7.9-4.3L5.6 39.9c-1.3-2.1-.6-4.8 1.5-6 1.9-1.1 4.3-.6 5.6 1.1l2.8 3.6z" fill="#F4EFE7" stroke="#1E1915" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Arraste</span></div>
+  </div>
+  <div class="w"><div class="folhear"><button id="ant" type="button" aria-label="Página anterior">&#8249;</button><span id="contador" aria-live="polite">1 / 8</span><button id="prox" type="button" aria-label="Próxima página">&#8250;</button></div><p class="toque rotulo">Toque no serviço para agendar</p></div>
+</section>
+
+<section class="combos" id="combos"><div class="w">
+  <header><p class="rotulo">Pacotes Cherie</p><h2>Combine e pague menos.</h2></header>
+  <ul class="lista" id="lista-combos" style="border-top:0"></ul>
+</div></section>
+
+<section class="cliente" id="cliente"><div class="w">
+  <div class="texto">
+    <p class="rotulo">Área da cliente</p>
+    <h2>Dez visitas, um selo de cera em cada.</h2>
+    <p>A cada visita você ganha um selo no seu cartão. Completou dez, o próximo momento sai com 40% off.</p>
+    <ol class="passos"><li>Crie seu cartão com nome e WhatsApp.</li><li>No salão, aponte a câmera para o QR do balcão.</li><li>Vale um selo por dia.</li></ol>
+  </div>
+  <div class="cartao">
+    <form id="cadastro" novalidate>
+      <h3>Crie seu cartão fidelidade</h3>
+      <div class="campo"><label for="nome">Nome e sobrenome</label><input id="nome" name="nome" autocomplete="name" required></div>
+      <div class="campo"><label for="tel">WhatsApp com DDD</label><input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 91234-5678" required></div>
+      <label class="aceite" for="aceite"><input id="aceite" type="checkbox"><span>Autorizo a Cherie Be a guardar meu nome e WhatsApp para o cartão fidelidade.</span></label>
+      <button class="btn cheio" type="submit">Criar meu cartão</button>
+      <p class="aviso erro" id="erro-cadastro" role="alert"></p>
+    </form>
+    <div id="cartela" hidden>
+      <div style="display:grid;gap:18px">
+        <div style="display:grid;gap:10px"><div><p class="rotulo" id="progresso" style="margin:0 0 6px">0 de 10 selos</p><h3 id="saudacao">Seu cartão</h3></div><div class="barra"><i id="barra-cartao"></i></div></div>
+        <div class="selos" id="selos" aria-hidden="true"></div>
+        <button class="btn cheio" id="simular" type="button">Escanear o QR do salão</button>
+        <p class="aviso" id="aviso-selo" role="status"></p>
+        <div class="premio" id="premio" hidden>
+          <p class="rotulo">Cartão completo</p>
+          <p class="grande">40% off no seu próximo momento.</p>
+          <a class="btn cheio" id="resgatar" target="_blank" rel="noopener" href="#">Resgatar no WhatsApp</a>
+          <button class="elo" id="novo-cartao" type="button">Já resgatei, começar um novo cartão</button>
+        </div>
+        <div class="demo">
+          <p><strong>Demonstração.</strong> Nesta prévia a câmera não abre, então o leitor simula a leitura. O cartão fica salvo só neste aparelho.</p>
+          <div><button class="btn" id="amanha" type="button">Avançar um dia</button><button class="btn" id="zerar" type="button">Apagar cartão</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+<section class="chegar" id="como-chegar"><div class="w">
+  <div class="onde">
+    <p class="rotulo">Como chegar</p>
+    <h2>Av. Guapira, 625.</h2>
+    <p class="bairro">Tucuruvi, São Paulo, SP</p>
+    <div class="acoes"><a class="btn cheio" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Cherie%20Be%2C%20Av.%20Guapira%2C%20625%20-%20Tucuruvi%2C%20S%C3%A3o%20Paulo">Traçar rota</a><a class="btn" target="_blank" rel="noopener" href="https://share.google/kEzJtc6KLOurJvjSc">Ver no Google</a></div>
+  </div>
+  <div>
+    <p class="rotulo">Atendimento</p>
+    <dl class="horas">
+      <div><dt>Terça a sexta</dt><dd>10h às 20h</dd></div>
+      <div><dt>Sábado</dt><dd>9h às 18h</dd></div>
+      <div><dt>Domingo e segunda</dt><dd>Fechado</dd></div>
+      <div><dt>Feriados</dt><dd>Consulte pelo WhatsApp</dd></div>
+    </dl>
+  </div>
+</div></section>
+</main>
+
+<div id="festa" hidden role="dialog" aria-modal="true" aria-labelledby="festa-n">
+  <div class="festa-cx">
+    <div class="festa-selo" id="festa-selo"><img id="festa-img" src="selo.svg" alt=""></div>
+    <p class="rotulo sobe" id="festa-rotulo">Selo desbloqueado</p>
+    <p class="festa-n sobe" id="festa-n">1 de 10 selos</p>
+    <div class="barra sobe"><i id="festa-barra"></i></div>
+    <p class="sobe" id="festa-pct">10% do progresso</p>
+    <button class="btn sobe" id="festa-ok" type="button">Continuar</button>
+  </div>
+</div>
+
+<div id="leitor" hidden role="dialog" aria-modal="true" aria-labelledby="leitor-msg">
+  <video id="leitor-video" playsinline muted hidden></video>
+  <div class="leitor-cx">
+    <div class="mira" id="mira"><i></i></div>
+    <p id="leitor-msg" role="status">Aponte para o QR do balcão.</p>
+    <button class="btn" id="leitor-fechar" type="button">Cancelar</button>
+  </div>
+</div>
+
+<footer class="rodape"><div class="w">
+  <h2>Reserve seu momento.</h2>
+  <dl>
+    <div><dt class="rotulo">WhatsApp</dt><dd><a id="wa-geral" target="_blank" rel="noopener" href="#">11 91275-9466</a></dd></div>
+    <div><dt class="rotulo">Endereço</dt><dd><a href="#como-chegar" data-ir="como-chegar">Av. Guapira, 625 · Tucuruvi</a></dd></div>
+    <div><dt class="rotulo">Atendimento</dt><dd>Terça a sexta, 10h às 20h<small>Sábado, 9h às 18h. Domingo e segunda, fechado.</small></dd></div>
+    <div><dt class="rotulo">Instagram</dt><dd><a target="_blank" rel="noopener" href="https://www.instagram.com/cheriebeoficial">@cheriebeoficial</a></dd></div>
+  </dl>
+  <img src="logo-papel.svg" alt="Cherie Be" width="174" height="60" style="width:174px;height:auto">
+</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+const WA='5511912759466';
+const wa=t=>'https://wa.me/'+WA+'?text='+encodeURIComponent(t);
+const msgServico=s=>s?'Oiee! Vim do site e gostaria de agendar: '+s:'Oiee! Vim do site e gostaria de agendar meu momento.';
+const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function ir(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:reduz?'auto':'smooth',block:'start'})}
+document.querySelectorAll('[data-ir]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();ir(a.dataset.ir)}));
+document.getElementById('wa-geral').href=wa(msgServico(''));
+
+/* ---------- Pacotes ---------- */
+const PACOTES=[
+  {g:'Facial'},
+  {n:'Olhar Impactante',d:'Aplicação de cílios + manutenção. 10% de benefício, de R$ 340 ou R$ 360.',v:[[306,'Fio a Fio, Egípcio e Brasileiro','Fio a Fio, Egípcio ou Brasileiro'],[324,'Fox e 5D','Fox ou 5D']]},
+  {n:'Routine',d:'Manutenção de cílios + design de sobrancelhas. 5% de benefício, de R$ 195.',v:[[185]]},
+  {g:'Unhas'},
+  {n:'Luxury',d:'Manutenção em gel + pedicure em gel. 10% de benefício, de R$ 275.',v:[[248]]},
+  {n:'Elegance',d:'Banho de gel + pedicure em gel. 10% de benefício, de R$ 265.',v:[[239]]},
+  {g:'Ambas'},
+  {n:'Constance',d:'Mão e pé + design de sobrancelhas. 5% de benefício, de R$ 165 ou R$ 235.',v:[[157,'Tradicional','tradicional'],[223,'Em gel','em gel']]},
+  {n:'Premium',d:'Banho de gel + manutenção de cílios. 5% de benefício, de R$ 315.',v:[[299]]}
+];
+const ul=document.getElementById('lista-combos');
+function precoEl(v){const p=document.createElement('div');p.className='preco';const s=document.createElement('small');s.textContent='R$';p.append(s,String(v[0]));if(v[1]){const e=document.createElement('em');e.textContent=v[1];p.appendChild(e)}return p}
+PACOTES.forEach(c=>{const li=document.createElement('li');
+  if(c.g){li.className='grupo rotulo';li.textContent=c.g;ul.appendChild(li);return}
+  const info=document.createElement('div');info.innerHTML='<strong></strong><span></span>';info.querySelector('strong').textContent=c.n;info.querySelector('span').textContent=c.d;
+  const elo=v=>{const a=document.createElement('a');a.href=wa(msgServico('Pacote '+c.n+(v[2]?' '+v[2]:'')));a.target='_blank';a.rel='noopener';return a};
+  if(c.v.length===1){const a=elo(c.v[0]);a.append(info,precoEl(c.v[0]));li.appendChild(a)}
+  else{const l=document.createElement('div');l.className='linha';const d=document.createElement('div');d.className='duplo';
+    c.v.forEach(v=>{const a=elo(v);a.setAttribute('aria-label',c.n+' '+v[1]+', R$ '+v[0]);a.appendChild(precoEl(v));d.appendChild(a)});l.append(info,d);li.appendChild(l)}
+  ul.appendChild(li)});
+
+/* ---------- Revista ---------- */
+const SPOTS=[[],[],[{"x":9.07,"y":38.74,"w":81.86,"t":5.7,"l":"04CortesiasCafé, chá e água","go":3},{"x":9.07,"y":44.43,"w":81.86,"t":5.7,"l":"05Mãos e PésGel, tradicional e seu momento","go":4},{"x":9.07,"y":50.13,"w":81.86,"t":5.7,"l":"06Unhas ModeladasMolde F1, manutenção e banho de gel","go":5},{"x":9.07,"y":55.83,"w":81.86,"t":5.7,"l":"08Nail ArtDecorações","go":7},{"x":9.07,"y":61.53,"w":81.86,"t":5.7,"l":"09DepilaçãoRosto e áreas avulsas","go":8},{"x":9.07,"y":67.23,"w":81.86,"t":5.7,"l":"10SobrancelhasDo design ao nanoblading","go":9},{"x":9.07,"y":72.93,"w":81.86,"t":5.7,"l":"12CíliosQual é o seu olhar?","go":11},{"x":9.07,"y":78.63,"w":81.86,"t":5.7,"l":"15Instagram@cheriebeoficial","go":14},{"x":9.07,"y":84.33,"w":81.86,"t":5.7,"l":"16Reserve seu momentoContato e endereço","go":15}],[],[{"x":36.27,"y":21.2,"w":55.67,"t":4.81,"l":"Manicure ou pedicureR$90","s":"Manicure ou pedicure em gel"},{"x":36.27,"y":26.01,"w":55.67,"t":4.81,"l":"AmbosR$180","s":"Manicure e pedicure em gel"},{"x":36.27,"y":44.48,"w":55.67,"t":4.45,"l":"ManicureR$50","s":"Manicure"},{"x":36.27,"y":48.93,"w":55.67,"t":4.45,"l":"PedicureR$60","s":"Pedicure"},{"x":36.27,"y":53.39,"w":55.67,"t":4.45,"l":"AmbosR$110","s":"Manicure e pedicure"},{"x":36.27,"y":66.18,"w":55.67,"t":4.81,"l":"Massagem relaxanteR$50","s":"Massagem relaxante"},{"x":36.27,"y":70.98,"w":55.67,"t":4.81,"l":"Plástica dos pésR$55","s":"Plástica dos pés"},{"x":36.27,"y":75.79,"w":55.67,"t":4.81,"l":"AmbosR$95","s":"Massagem e plástica dos pés"},{"x":8.06,"y":87.64,"w":25.61,"t":4.43,"l":"Remoção do gelR$30","s":"Remoção da esmaltação em gel"},{"x":37.19,"y":87.64,"w":25.61,"t":4.43,"l":"Esmaltação tradicionalR$35","s":"Esmaltação tradicional"},{"x":66.33,"y":87.64,"w":25.61,"t":4.43,"l":"Decoração simplestodas as unhasR$30","s":"Decoração simples"},{"x":8.06,"y":94.66,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[],[{"x":36.27,"y":8.82,"w":55.67,"t":18.7,"l":"Aplicação de alongamento Molde F1R$230 Como cortesia, inclui","s":"Alongamento Molde F1"},{"x":36.27,"y":35.87,"w":55.67,"t":4.81,"l":"Esmaltação em gelR$185","s":"Manutenção com esmaltação em gel"},{"x":36.27,"y":40.68,"w":55.67,"t":4.81,"l":"TradicionalR$165","s":"Manutenção com esmaltação tradicional"},{"x":36.27,"y":58.51,"w":55.67,"t":4.81,"l":"Esmaltação em gelR$175","s":"Banho de gel com esmaltação em gel"},{"x":36.27,"y":63.32,"w":55.67,"t":4.81,"l":"TradicionalR$155","s":"Banho de gel com esmaltação tradicional"},{"x":8.06,"y":80.03,"w":39.42,"t":4.01,"l":"Esmaltação em gelR$120","s":"Blindagem com esmaltação em gel"},{"x":8.06,"y":84.04,"w":39.42,"t":4.01,"l":"TradicionalR$100","s":"Blindagem com esmaltação tradicional"},{"x":52.52,"y":80.03,"w":39.42,"t":4.01,"l":"Remoção de artificiaisR$60","s":"Remoção de artificiais"},{"x":52.52,"y":84.04,"w":39.42,"t":4.01,"l":"Unha quebradaR$23","s":"Unha quebrada"},{"x":52.52,"y":88.05,"w":39.42,"t":4.01,"l":"Decoração em gelR$20","s":"Decoração em gel"},{"x":8.06,"y":94.66,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[{"x":9.07,"y":65.18,"w":81.86,"t":6.59,"l":"Par gel 3D feito à mãoR$40","s":"Par gel 3D feito à mão"},{"x":9.07,"y":71.77,"w":81.86,"t":6.59,"l":"Par encapsuladasR$30","s":"Par encapsuladas"},{"x":9.07,"y":78.36,"w":81.86,"t":6.68,"l":"Par decoração 3D importadaR$30","s":"Par decoração 3D importada"}],[{"x":8.06,"y":18.97,"w":49.12,"t":10.22,"l":"Rosto todoR$60 Pele suave e impecável com a depilação comple","s":"Depilação rosto todo"},{"x":8.06,"y":33.53,"w":49.12,"t":6.23,"l":"CosteletasR$25","s":"Depilação de costeletas"},{"x":8.06,"y":39.77,"w":49.12,"t":6.23,"l":"BuçoR$25","s":"Depilação de buço"},{"x":8.06,"y":46,"w":49.12,"t":6.23,"l":"NarizR$25","s":"Depilação de nariz"},{"x":8.06,"y":52.23,"w":49.12,"t":6.23,"l":"QueixoR$25","s":"Depilação de queixo"},{"x":8.06,"y":58.47,"w":49.12,"t":7.03,"l":"OrelhasR$25","s":"Depilação de orelhas"},{"x":8.06,"y":93.94,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[],[{"x":9.07,"y":9.8,"w":81.86,"t":31.96,"l":"NanobladingR$579 Realce suas sobrancelhas com fios realistas","s":"Nanoblading"},{"x":9.07,"y":45.12,"w":81.86,"t":13.62,"l":"Brow LaminationR$170 Conquiste sobrancelhas volumosas e alin","s":"Brow Lamination"},{"x":9.07,"y":62.1,"w":81.86,"t":13.62,"l":"Henna e TinturaR$80 Dê definição às suas sobrancelhas com um","s":"Henna e Tintura"},{"x":9.07,"y":79.08,"w":81.86,"t":13.62,"l":"DesignR$55 Realce a beleza do seu olhar com um design adapta","s":"Design de Sobrancelhas"},{"x":9.07,"y":94.3,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[],[{"x":8.06,"y":12.94,"w":83.88,"t":16.47,"l":"Delineado e felinoFoxOlhar sedutor com cílios definidos. R$2","s":"Cílios Fox"},{"x":8.06,"y":29.42,"w":83.88,"t":16.47,"l":"Volumoso e marcante5DCílios densos, acabamento impactante. R","s":"Cílios 5D"},{"x":8.06,"y":45.89,"w":83.88,"t":16.47,"l":"ExpressivoBrasileiroVolume intenso e expressivo. R$200","s":"Cílios Brasileiro"},{"x":8.06,"y":62.37,"w":83.88,"t":16.47,"l":"Volumoso e sofisticadoEgípcioOlhar suave e marcante. Cores: ","s":"Cílios Egípcio"},{"x":8.06,"y":78.84,"w":83.88,"t":16.47,"l":"Natural, leve e eleganteFio a FioRealce o natural, cílios de","s":"Cílios Fio a Fio"},{"x":8.06,"y":96.47,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[{"x":9.07,"y":9.44,"w":81.86,"t":28.76,"l":"Natural e curvado Lash Lifting Definição e curvatura. Duraçã","s":"Lash Lifting"},{"x":9.07,"y":42.12,"w":81.86,"t":12.02,"l":"ManutençãoR$140 Cílios sempre perfeitos.","s":"Manutenção de Cílios"},{"x":9.07,"y":63.04,"w":81.86,"t":14.42,"l":"RemoçãoR$50 Remoção de forma segura, preservando a saúde dos","s":"Remoção de Cílios"},{"x":9.07,"y":94.3,"w":28.72,"t":1.78,"l":"Reserve seu momento: 11 91275-9466","s":""}],[{"x":7.05,"y":4.63,"w":85.89,"t":9.94,"l":"Siga no Instagram @cheriebeoficial","h":"https://www.instagram.com/cheriebeoficial"},{"x":7.05,"y":78.26,"w":85.89,"t":15.49,"l":"Aponte a câmera e acompanhe. Nosso trabalho e as novidades d","h":"https://www.instagram.com/cheriebeoficial"}],[{"x":9.07,"y":61.16,"w":81.86,"t":7.3,"l":"WhatsApp11 91275-9466","s":""},{"x":9.07,"y":68.46,"w":81.86,"t":7.3,"l":"Instagram@cheriebeoficial","h":"https://www.instagram.com/cheriebeoficial"},{"x":9.07,"y":75.76,"w":81.86,"t":7.3,"l":"EndereçoAv. Guapira, 625 · Tucuruvi","h":"https://www.google.com/maps/search/?api=1&query=Av.%20Guapira%2C%20625%20-%20Tucuruvi%2C%20S%C3%A3o%20Paulo"}]];
+/* Edição do site: capa + as páginas de serviço. Ficam fora sobre nós, índice, cortesias, aberturas de seção, Instagram e contato (o site já tem atalhos, rodapé e como chegar). */
+const ORDEM=[0,4,6,7,10,12,13,8];
+const ATALHOS=[['Unhas',1,3],['Sobrancelhas',4,4],['Cílios',5,6],['Depilação',7,7]];
+const livro=document.getElementById('livro'),total=ORDEM.length;
+ORDEM.forEach((o,i)=>{const sp=SPOTS[o];
+  const pg=document.createElement('div');pg.className='pagina';pg.dataset.density='soft';
+  const box=document.createElement('div');
+  const im=new Image();im.src='pages/p'+String(o+1).padStart(2,'0')+'.jpg';im.alt='Página '+(i+1)+' da revista Cherie Be';im.draggable=false;box.appendChild(im);
+  sp.forEach(s=>{const a=document.createElement('a');a.setAttribute('aria-label',s.l||'Abrir');a.style.cssText='left:'+s.x+'%;top:'+s.y+'%;width:'+s.w+'%;height:'+s.t+'%';
+    if(s.go!==undefined){a.href='#revista';a.dataset.go=s.go}
+    else{a.href=s.h?s.h:wa(msgServico(s.s));a.target='_blank';a.rel='noopener';if(!s.h&&s.s)a.className='svc'}
+    box.appendChild(a)});
+  pg.appendChild(box);livro.appendChild(pg)});
+const cont=document.getElementById('contador'),ant=document.getElementById('ant'),prox=document.getElementById('prox');
+let flip=null;
+if(window.St&&St.PageFlip){
+  const estreito=innerWidth<900,blocoL=livro.offsetWidth;
+  flip=new St.PageFlip(livro,{width:794,height:1123,size:'stretch',minWidth:estreito?Math.floor(blocoL/2)+1:240,maxWidth:794,minHeight:300,maxHeight:1123,showCover:true,usePortrait:true,mobileScrollSupport:true,maxShadowOpacity:.35,flippingTime:reduz?120:800,clickEventForward:true,disableFlipByClick:true,swipeDistance:24});
+  flip.loadFromHTML(document.querySelectorAll('.pagina'));
+  const marca=i=>{cont.textContent=(i+1)+' / '+total;ant.disabled=i<=0;prox.disabled=i>=total-1;
+    document.querySelectorAll('#atalhos button[data-de]').forEach(b=>b.setAttribute('aria-pressed',i>=+b.dataset.de&&i<=+b.dataset.ate))};
+  const at=document.getElementById('atalhos');
+  ATALHOS.forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a[0];b.dataset.de=a[1];b.dataset.ate=a[2];b.setAttribute('aria-pressed','false');
+    b.onclick=()=>{if(flip.getCurrentPageIndex()!==a[1])flip.flip(a[1],'bottom')};at.appendChild(b)});
+  {const b=document.createElement('button');b.type='button';b.textContent='Pacotes';b.onclick=()=>ir('combos');at.appendChild(b)}
+  /* No celular (uma página por vez) a biblioteca vira para trás fora da tela. Aqui a página anterior volta girando a partir da lombada. */
+  const prevOriginal=flip.flipPrev.bind(flip);let voltando=false;
+  function voltar(canto){
+    const i=flip.getCurrentPageIndex();if(voltando||i<=0)return;
+    if(flip.getOrientation()!=='portrait'||reduz||!livro.animate)return prevOriginal(canto||'bottom');
+    voltando=true;const palco=document.getElementById('palco'),r=livro.getBoundingClientRect(),pr=palco.getBoundingClientRect();
+    const v=document.createElement('div');v.id='volta';v.style.cssText='left:'+(r.left-pr.left)+'px;top:'+(r.top-pr.top)+'px;width:'+r.width+'px;height:'+r.height+'px';
+    const im=new Image();im.src='pages/p'+String(ORDEM[i-1]+1).padStart(2,'0')+'.jpg';im.alt='';v.appendChild(im);palco.appendChild(v);
+    const fim=()=>{flip.turnToPage(i-1);marca(i-1);requestAnimationFrame(()=>{v.remove();voltando=false})};
+    im.animate([{transform:'rotateY(-104deg)'},{transform:'rotateY(-8deg)',offset:.82},{transform:'rotateY(0deg)'}],{duration:750,easing:'cubic-bezier(.35,.6,.25,1)',fill:'forwards'}).onfinish=fim;
+  }
+  flip.flipPrev=voltar;
+  const gesto=document.getElementById('gesto');let visto=false;try{visto=!!localStorage.getItem('cheriebe_gesto')}catch(e){}
+  gesto.hidden=visto;
+  const somegesto=()=>{if(gesto.hidden)return;gesto.hidden=true;try{localStorage.setItem('cheriebe_gesto','1')}catch(e){}};
+  flip.on('flip',e=>{somegesto();marca(e.data);livro.classList.remove('pisca');void livro.offsetWidth;livro.classList.add('pisca')});marca(0);
+  ant.onclick=()=>voltar('bottom');prox.onclick=()=>flip.flipNext('bottom');
+  addEventListener('keydown',e=>{if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName))return;if(e.key==='ArrowRight')flip.flipNext('bottom');if(e.key==='ArrowLeft')flip.flipPrev('bottom')});
+  /* Os serviços são links que ocupam a linha inteira: deslizar por cima deles também vira a página. */
+  let ini=null,ignora=false;
+  livro.addEventListener('touchstart',e=>{const a=e.target.closest&&e.target.closest('a');ini=a?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null},{passive:true,capture:true});
+  livro.addEventListener('touchend',e=>{if(!ini)return;const t=e.changedTouches[0],dx=t.clientX-ini.x,dy=t.clientY-ini.y;ini=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){ignora=true;setTimeout(()=>ignora=false,400);dx<0?flip.flipNext('bottom'):flip.flipPrev('bottom')}},{passive:true,capture:true});
+  livro.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(!a)return;if(ignora){e.preventDefault();e.stopPropagation();return}if(a.dataset.go!==undefined){e.preventDefault();flip.flip(+a.dataset.go,'bottom')}},true);
+}else{
+  /* Sem a biblioteca de folhear, as páginas ficam empilhadas e continuam clicáveis. */
+  livro.style.cssText='width:min(100%,640px);aspect-ratio:auto;display:grid;gap:12px';
+  livro.querySelectorAll('.pagina').forEach(p=>p.style.aspectRatio='794/1123');
+  document.querySelector('.folhear').hidden=true;
+}
+
+/* ---------- Cartão fidelidade (protótipo: guardado neste aparelho) ---------- */
+const CHAVE='cheriebe_fidelidade_v1',META=10;
+let est={nome:'',tel:'',selos:[],salto:0};
+try{const v=JSON.parse(localStorage.getItem(CHAVE));if(v&&Array.isArray(v.selos))est=Object.assign(est,v)}catch(e){}
+const gravar=()=>{try{localStorage.setItem(CHAVE,JSON.stringify(est))}catch(e){}};
+const hoje=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date(Date.now()+est.salto*864e5));
+const $=id=>document.getElementById(id);
+let seloPendente=location.hash==='#selo';
+function desenhar(vis,chegou){
+  const tem=!!est.nome;$('cadastro').hidden=tem;$('cartela').hidden=!tem;if(!tem)return;
+  const n=vis==null?est.selos.length:vis;
+  $('saudacao').textContent='Cartão de '+est.nome.split(' ')[0];
+  $('progresso').textContent=n+' de '+META+' selos · '+(n*100/META)+'%';
+  $('barra-cartao').style.width=(n*100/META)+'%';
+  const g=$('selos');g.textContent='';
+  for(let i=0;i<META;i++){const v=document.createElement('div');v.className='vaga';v.textContent=i+1;
+    if(i<n){v.classList.add('cheia');const c=new Image();c.src='selo.svg';c.alt='';if(i===chegou)c.className='chegou';v.appendChild(c)}
+    g.appendChild(v)}
+  $('premio').hidden=n<META;
+  $('resgatar').href=wa('Oiee! Sou cliente fiel: completei meus 10 selos no site e ganhei 40% off. Meu nome é '+est.nome+' e quero agendar meu momento.');
+}
+/* Confete dourado em tela cheia: estouro a partir de um ponto e chuva por alguns segundos. */
+const chuva=(()=>{const c=document.createElement('canvas');c.id='chuva';c.setAttribute('aria-hidden','true');c.hidden=true;document.body.appendChild(c);
+  const x=c.getContext('2d'),P=[],COR=['#F6E4AE','#DDBD74','#BC964D','#FFFFFF','#F4EFE7','#E9CF8E'];let W=0,H=0,ate=0,rodando=false,ult=0;
+  function medir(){const d=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}
+  function p(px,py,vx,vy){P.push({x:px,y:py,vx,vy,r:3+Math.random()*4.5,a:Math.random()*6.28,va:(Math.random()-.5)*.3,f:Math.random()*6.28,vf:.08+Math.random()*.2,c:COR[Math.random()*COR.length|0]})}
+  function quadro(t){const dt=Math.min(34,t-ult)/16.7;ult=t;x.clearRect(0,0,W,H);
+    if(t<ate){const q=W<600?3:6;for(let i=0;i<q;i++)p(Math.random()*W,-12,(Math.random()-.5)*1.5,1.5+Math.random()*2.5)}
+    for(let i=P.length-1;i>=0;i--){const k=P[i];k.vy=Math.min(k.vy+.13*dt,4.6);k.vx*=.985;k.x+=(k.vx+Math.sin(k.f)*.9)*dt;k.y+=k.vy*dt;k.a+=k.va*dt;k.f+=k.vf*dt;
+      if(k.y>H+20){P.splice(i,1);continue}
+      x.save();x.translate(k.x,k.y);x.rotate(k.a);x.scale(1,Math.cos(k.f));x.fillStyle=k.c;x.beginPath();x.ellipse(0,0,k.r,k.r*.55,0,0,6.283);x.fill();x.restore()}
+    if(P.length||t<ate)requestAnimationFrame(quadro);else{rodando=false;c.hidden=true}}
+  function ligar(){if(rodando)return;rodando=true;c.hidden=false;medir();ult=performance.now();requestAnimationFrame(quadro)}
+  addEventListener('resize',()=>{if(rodando)medir()});
+  return{estouro(px,py,n){for(let i=0;i<n;i++){const an=Math.random()*6.283,v=2+Math.random()*8;p(px,py,Math.cos(an)*v,Math.sin(an)*v-3.5)}ligar()},chover(ms){ate=performance.now()+ms;ligar()}}})();
+/* O selo sai da vaga, cresce até o centro com confete, mostra o progresso e volta para o cartão. */
+let festaTimer=0,festaAberta=false;
+function voador(r){const v=new Image();v.id='voador';v.src='selo.svg';v.alt='';v.style.cssText='left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px';document.body.appendChild(v);return v}
+function alvo(vaga,a){const v=vaga.getBoundingClientRect();return{dx:v.left-v.width*.1-a.left,dy:v.top-v.height*.1-a.top,s:v.width*1.2/a.width,cx:v.left+v.width/2,cy:v.top+v.height/2}}
+function festejar(n){
+  const f=$('festa'),sel=$('festa-selo'),cx=f.querySelector('.festa-cx'),cheio=n>=META,de=(n-1)*100/META,ate=n*100/META;
+  desenhar(n-1);
+  const vaga=$('selos').children[n-1];vaga.scrollIntoView({block:'center',behavior:'auto'});
+  $('festa-rotulo').textContent=cheio?'Cartão completo':'Selo desbloqueado';
+  $('festa-n').textContent=n+' de '+META+' selos';
+  $('festa-pct').textContent=cheio?'100% do progresso. Seus 40% off estão liberados.':de+'% do progresso';
+  const b=$('festa-barra');b.style.transition='none';b.style.width=de+'%';
+  sel.classList.remove('pousou');sel.classList.add('voando');cx.classList.remove('pronto');
+  f.classList.remove('saindo');f.hidden=false;festaAberta=true;
+  const a=$('festa-img').getBoundingClientRect(),o=alvo(vaga,a),voa=voador(a);
+  chuva.estouro(o.cx,o.cy,28);
+  const pousar=()=>{voa.remove();sel.classList.remove('voando');sel.classList.add('pousou');cx.classList.add('pronto');
+    chuva.estouro(a.left+a.width/2,a.top+a.height/2,W_CONF());chuva.chover(cheio?6800:5600);
+    try{navigator.vibrate&&navigator.vibrate([30,40,70])}catch(e){}
+    $('festa-ok').focus({preventScroll:true});
+    setTimeout(()=>{b.style.transition='';b.style.width=ate+'%';
+      if(!cheio){const t0=performance.now();const passo=t=>{const k=Math.min(1,(t-t0)/900);$('festa-pct').textContent=Math.round(de+(ate-de)*k)+'% do progresso';if(k<1&&festaAberta)requestAnimationFrame(passo)};requestAnimationFrame(passo)}},700);
+    clearTimeout(festaTimer);festaTimer=setTimeout(()=>fecharFesta(n),cheio?5400:4400)};
+  if(voa.animate)voa.animate([{transform:'translate('+o.dx+'px,'+o.dy+'px) scale('+o.s+') rotate(-24deg)'},{transform:'translate(0,0) scale(1.14) rotate(5deg)',offset:.78},{transform:'translate(0,0) scale(1) rotate(0)'}],{duration:900,easing:'cubic-bezier(.3,.85,.3,1)'}).onfinish=pousar;else pousar();
+  $('festa-ok').onclick=()=>fecharFesta(n);
+}
+const W_CONF=()=>innerWidth<600?90:150;
+function fecharFesta(n){
+  const sel=$('festa-selo');if(!festaAberta||!sel.classList.contains('pousou'))return;festaAberta=false;clearTimeout(festaTimer);
+  const f=$('festa'),vaga=$('selos').children[n-1];
+  vaga.scrollIntoView({block:'center',behavior:'auto'});
+  const a=$('festa-img').getBoundingClientRect(),o=alvo(vaga,a),voa=voador(a);
+  sel.classList.add('voando');f.classList.add('saindo');
+  const fim=()=>{voa.remove();f.hidden=true;desenhar(null,n-1);chuva.estouro(o.cx,o.cy,18);
+    $('aviso-selo').textContent=n>=META?'Décimo selo. Cartão completo.':'Selo '+n+' de '+META+' no cartão.';$('simular').focus({preventScroll:true})};
+  if(voa.animate)voa.animate([{transform:'translate(0,0) scale(1)'},{transform:'translate('+o.dx+'px,'+o.dy+'px) scale('+o.s+')'}],{duration:750,easing:'cubic-bezier(.55,0,.2,1)',fill:'forwards'}).onfinish=fim;else fim();
+}
+/* Leitor de QR: abre a câmera traseira e lê o código do balcão. Sem câmera (como nesta prévia), simula a leitura. */
+let leitorStream=null,leitorLoop=0,leitorSim=0;
+function travado(){
+  if(!est.nome)return 'cadastro';
+  if(est.selos.length>=META)return 'Seu cartão já está completo. Resgate seus 40% off.';
+  if(est.selos.includes(hoje()))return 'O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';
+  return '';
+}
+function fecharLeitor(){cancelAnimationFrame(leitorLoop);clearTimeout(leitorSim);if(leitorStream){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null}const v=$('leitor-video');v.srcObject=null;v.hidden=true;$('leitor').hidden=true;$('mira').classList.remove('ok')}
+function leuQR(){cancelAnimationFrame(leitorLoop);$('mira').classList.add('ok');$('leitor-msg').textContent='QR lido.';setTimeout(()=>{fecharLeitor();carimbar()},420)}
+function carregarJsQR(){return new Promise(r=>{if(window.jsQR)return r(true);const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';s.onload=()=>r(true);s.onerror=()=>r(false);document.head.appendChild(s)})}
+async function abrirLeitor(){
+  const tr=travado();if(tr){if(tr==='cadastro'){seloPendente=true;ir('cliente');$('nome').focus({preventScroll:true})}else $('aviso-selo').textContent=tr;return}
+  $('aviso-selo').textContent='';$('leitor-msg').textContent='Aponte para o QR do balcão.';$('leitor').hidden=false;$('leitor-fechar').focus({preventScroll:true});
+  try{
+    leitorStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+    if($('leitor').hidden){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null;return}
+    const v=$('leitor-video');v.srcObject=leitorStream;v.hidden=false;await v.play();
+    const det=('BarcodeDetector' in window)?new BarcodeDetector({formats:['qr_code']}):null;
+    if(!det&&!(await carregarJsQR()))throw new Error('sem leitor');
+    const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});let ocupado=false;
+    const olhar=async()=>{if($('leitor').hidden)return;
+      if(v.videoWidth&&!ocupado){ocupado=true;let txt='';
+        try{if(det){const r=await det.detect(v);if(r[0])txt=r[0].rawValue}
+          else{const w=480,h=Math.round(w*v.videoHeight/v.videoWidth);cv.width=w;cv.height=h;cx.drawImage(v,0,0,w,h);const r=jsQR(cx.getImageData(0,0,w,h).data,w,h);if(r)txt=r.data}}catch(e){}
+        ocupado=false;
+        if(txt){if(/selo/i.test(txt))return leuQR();$('leitor-msg').textContent='Esse não é o QR da Cherie Be. Procure o do balcão.'}}
+      leitorLoop=requestAnimationFrame(olhar)};
+    leitorLoop=requestAnimationFrame(olhar);
+  }catch(e){
+    if(leitorStream){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null}$('leitor-video').hidden=true;
+    if($('leitor').hidden)return;
+    $('leitor-msg').textContent='Prévia sem acesso à câmera: simulando a leitura.';leitorSim=setTimeout(leuQR,1700);
+  }
+}
+$('leitor-fechar').onclick=fecharLeitor;
+function carimbar(){
+  const av=$('aviso-selo');
+  if(!est.nome){seloPendente=true;ir('cliente');$('nome').focus({preventScroll:true});return}
+  if(est.selos.length>=META){av.textContent='Seu cartão já está completo. Resgate seus 40% off.';return}
+  if(est.selos.includes(hoje())){av.textContent='O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';return}
+  est.selos.push(hoje());gravar();av.textContent='';
+  if(reduz){desenhar();av.textContent=est.selos.length>=META?'Décimo selo. Cartão completo.':'Selo '+est.selos.length+' de '+META+' no cartão.'}
+  else festejar(est.selos.length);
+}
+/* Aceita o que o preenchimento automático do celular coloca: +55, parênteses, traços e zero na frente. */
+function limpaTel(v){let d=v.replace(/\D/g,'').replace(/^0+/,'');if(d.length>11&&d.startsWith('55'))d=d.slice(2);return d.replace(/^0+/,'')}
+$('cadastro').addEventListener('submit',e=>{e.preventDefault();
+  const nome=$('nome').value.trim().replace(/\s+/g,' '),tel=limpaTel($('tel').value),er=$('erro-cadastro');
+  if(nome.split(' ').length<2){er.textContent='Escreva nome e sobrenome.';$('nome').focus();return}
+  if(tel.length<10||tel.length>11){er.textContent='Confira o WhatsApp: DDD e número, 10 ou 11 dígitos.';$('tel').focus();return}
+  if(!$('aceite').checked){er.textContent='Marque a autorização para criar o cartão.';$('aceite').focus();return}
+  er.textContent='';est.nome=nome;est.tel=tel;gravar();desenhar();
+  if(seloPendente){seloPendente=false;carimbar()}else $('aviso-selo').textContent='Cartão criado. Seu primeiro selo entra na próxima visita.';
+});
+$('simular').onclick=abrirLeitor;
+$('amanha').onclick=()=>{est.salto++;gravar();$('aviso-selo').textContent='Demonstração: agora é '+hoje().split('-').reverse().join('/')+'.'};
+$('zerar').onclick=()=>{est={nome:'',tel:'',selos:[],salto:0};try{localStorage.removeItem(CHAVE)}catch(e){}$('cadastro').reset();desenhar()};
+$('novo-cartao').onclick=()=>{est.selos=[];gravar();desenhar();$('aviso-selo').textContent='Novo cartão aberto.'};
+desenhar();
+if(seloPendente){ir('cliente');if(est.nome){seloPendente=false;carimbar()}}
+</script>
+
+</body>
+</html>
