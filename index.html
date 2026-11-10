@@ -174,10 +174,6 @@ form{display:grid;gap:14px}
 .premio .grande{font:italic 400 clamp(2rem,8vw,2.8rem)/1 var(--display)}
 .elo{background:none;border:0;padding:0;font:inherit;color:var(--suave);text-decoration:underline;cursor:pointer;justify-self:start}
 #simular{width:100%}
-.demo{border:1px dashed var(--suave);padding:14px;display:grid;gap:10px}
-.demo p{margin:0;font-size:.88rem;color:var(--suave)}
-.demo div{display:flex;flex-wrap:wrap;gap:8px}
-.demo .btn{min-height:40px;padding:0 14px;font-size:.72rem}
 
 /* como chegar */
 .chegar{background:var(--bege)}
@@ -256,10 +252,6 @@ form{display:grid;gap:14px}
           <p class="grande">40% off no seu próximo momento.</p>
           <a class="btn cheio" id="resgatar" target="_blank" rel="noopener" href="#">Resgatar no WhatsApp</a>
           <button class="elo" id="novo-cartao" type="button">Já resgatei, começar um novo cartão</button>
-        </div>
-        <div class="demo">
-          <p><strong>Demonstração.</strong> Nesta prévia a câmera não abre, então o leitor simula a leitura. O cartão fica salvo só neste aparelho.</p>
-          <div><button class="btn" id="amanha" type="button">Avançar um dia</button><button class="btn" id="zerar" type="button">Apagar cartão</button></div>
         </div>
       </div>
     </div>
@@ -406,13 +398,25 @@ if(window.St&&St.PageFlip){
 }
 
 /* ---------- Cartão fidelidade (protótipo: guardado neste aparelho) ---------- */
-const CHAVE='cheriebe_fidelidade_v1',META=10;
-let est={nome:'',tel:'',selos:[],salto:0};
-try{const v=JSON.parse(localStorage.getItem(CHAVE));if(v&&Array.isArray(v.selos))est=Object.assign(est,v)}catch(e){}
+/* O cartão vive no Supabase; o navegador só lembra quem é a cliente. As regras estão em supabase/migrations. */
+const SUPA_URL='https://bowakhtfopjckwfcgyxu.supabase.co',SUPA_CHAVE='sb_publishable_lp2uSWDaYq-qicSm5ptDxQ_bnh6ewOX';
+const CHAVE='cheriebe_cliente_v2',META=10,SEM_CONEXAO='Não conseguimos falar com o cartão agora. Tente de novo em instantes.';
+let est={nome:'',tel:'',selos:[]};
+try{const v=JSON.parse(localStorage.getItem(CHAVE));if(v&&v.tel&&Array.isArray(v.selos))est=Object.assign(est,v);localStorage.removeItem('cheriebe_fidelidade_v1')}catch(e){}
 const gravar=()=>{try{localStorage.setItem(CHAVE,JSON.stringify(est))}catch(e){}};
-const hoje=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date(Date.now()+est.salto*864e5));
+const esquecer=()=>{est={nome:'',tel:'',selos:[]};try{localStorage.removeItem(CHAVE)}catch(e){}};
+const aplicar=r=>{est.nome=r.nome;est.tel=r.telefone;est.selos=r.selos;gravar()};
+async function rpc(fn,args){
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),10000);
+  try{const r=await fetch(SUPA_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SUPA_CHAVE,'Content-Type':'application/json'},body:JSON.stringify(args),signal:c.signal});
+    if(!r.ok)throw new Error('http '+r.status);return await r.json()}
+  finally{clearTimeout(t)}
+}
+const hoje=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
 const $=id=>document.getElementById(id);
 let seloPendente=location.hash==='#selo';
+/* Tira o #selo do endereço: reabrir a aba em casa, outro dia, não pode dar selo. */
+if(seloPendente)try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
 function desenhar(vis,chegou){
   const tem=!!est.nome;$('cadastro').hidden=tem;$('cartela').hidden=!tem;if(!tem)return;
   const n=vis==null?est.selos.length:vis;
@@ -477,15 +481,16 @@ function fecharFesta(n){
     $('aviso-selo').textContent=n>=META?'Décimo selo. Cartão completo.':'Selo '+n+' de '+META+' no cartão.';$('simular').focus({preventScroll:true})};
   if(voa.animate)voa.animate([{transform:'translate(0,0) scale(1)'},{transform:'translate('+o.dx+'px,'+o.dy+'px) scale('+o.s+')'}],{duration:750,easing:'cubic-bezier(.55,0,.2,1)',fill:'forwards'}).onfinish=fim;else fim();
 }
-/* Leitor de QR: abre a câmera traseira e lê o código do balcão. Sem câmera (como nesta prévia), simula a leitura. */
-let leitorStream=null,leitorLoop=0,leitorSim=0;
+/* Leitor de QR: abre a câmera traseira e só aceita o código do balcão deste site. */
+let leitorStream=null,leitorLoop=0;
+const qrValido=t=>t.trim().replace('/index.html#','/#')===location.origin+location.pathname.replace(/index\.html$/,'')+'#selo';
 function travado(){
   if(!est.nome)return 'cadastro';
   if(est.selos.length>=META)return 'Seu cartão já está completo. Resgate seus 40% off.';
   if(est.selos.includes(hoje()))return 'O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';
   return '';
 }
-function fecharLeitor(){cancelAnimationFrame(leitorLoop);clearTimeout(leitorSim);if(leitorStream){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null}const v=$('leitor-video');v.srcObject=null;v.hidden=true;$('leitor').hidden=true;$('mira').classList.remove('ok')}
+function fecharLeitor(){cancelAnimationFrame(leitorLoop);if(leitorStream){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null}const v=$('leitor-video');v.srcObject=null;v.hidden=true;$('leitor').hidden=true;$('mira').classList.remove('ok')}
 function leuQR(){cancelAnimationFrame(leitorLoop);$('mira').classList.add('ok');$('leitor-msg').textContent='QR lido.';setTimeout(()=>{fecharLeitor();carimbar()},420)}
 function carregarJsQR(){return new Promise(r=>{if(window.jsQR)return r(true);const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';s.onload=()=>r(true);s.onerror=()=>r(false);document.head.appendChild(s)})}
 async function abrirLeitor(){
@@ -503,41 +508,60 @@ async function abrirLeitor(){
         try{if(det){const r=await det.detect(v);if(r[0])txt=r[0].rawValue}
           else{const w=480,h=Math.round(w*v.videoHeight/v.videoWidth);cv.width=w;cv.height=h;cx.drawImage(v,0,0,w,h);const r=jsQR(cx.getImageData(0,0,w,h).data,w,h);if(r)txt=r.data}}catch(e){}
         ocupado=false;
-        if(txt){if(/selo/i.test(txt))return leuQR();$('leitor-msg').textContent='Esse não é o QR da Cherie Be. Procure o do balcão.'}}
+        if(txt){if(qrValido(txt))return leuQR();$('leitor-msg').textContent='Esse não é o QR da Cherie Be. Procure o do balcão.'}}
       leitorLoop=requestAnimationFrame(olhar)};
     leitorLoop=requestAnimationFrame(olhar);
   }catch(e){
     if(leitorStream){leitorStream.getTracks().forEach(t=>t.stop());leitorStream=null}$('leitor-video').hidden=true;
     if($('leitor').hidden)return;
-    $('leitor-msg').textContent='Prévia sem acesso à câmera: simulando a leitura.';leitorSim=setTimeout(leuQR,1700);
+    $('leitor-msg').textContent='Não foi possível abrir a câmera. Use a câmera do celular no QR do balcão.';
   }
 }
 $('leitor-fechar').onclick=fecharLeitor;
-function carimbar(){
+let carimbando=false;
+async function carimbar(){
   const av=$('aviso-selo');
   if(!est.nome){seloPendente=true;ir('cliente');$('nome').focus({preventScroll:true});return}
-  if(est.selos.length>=META){av.textContent='Seu cartão já está completo. Resgate seus 40% off.';return}
-  if(est.selos.includes(hoje())){av.textContent='O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';return}
-  est.selos.push(hoje());gravar();av.textContent='';
+  if(carimbando)return;carimbando=true;
+  let r;try{r=await rpc('cartao_carimbar',{p_telefone:est.tel})}catch(e){carimbando=false;av.textContent=SEM_CONEXAO;return}
+  carimbando=false;
+  if(r.status==='sem_cadastro'){esquecer();desenhar();seloPendente=true;ir('cliente');$('nome').focus({preventScroll:true});return}
+  aplicar(r);
+  if(r.status==='completo'){desenhar();av.textContent='Seu cartão já está completo. Resgate seus 40% off.';return}
+  if(r.status==='ja_hoje'){desenhar();av.textContent='O selo de hoje já está no seu cartão. O próximo entra na sua próxima visita.';return}
+  av.textContent='';
   if(reduz){desenhar();av.textContent=est.selos.length>=META?'Décimo selo. Cartão completo.':'Selo '+est.selos.length+' de '+META+' no cartão.'}
   else festejar(est.selos.length);
 }
 /* Aceita o que o preenchimento automático do celular coloca: +55, parênteses, traços e zero na frente. */
 function limpaTel(v){let d=v.replace(/\D/g,'').replace(/^0+/,'');if(d.length>11&&d.startsWith('55'))d=d.slice(2);return d.replace(/^0+/,'')}
-$('cadastro').addEventListener('submit',e=>{e.preventDefault();
+$('cadastro').addEventListener('submit',async e=>{e.preventDefault();
   const nome=$('nome').value.trim().replace(/\s+/g,' '),tel=limpaTel($('tel').value),er=$('erro-cadastro');
   if(nome.split(' ').length<2){er.textContent='Escreva nome e sobrenome.';$('nome').focus();return}
   if(tel.length<10||tel.length>11){er.textContent='Confira o WhatsApp: DDD e número, 10 ou 11 dígitos.';$('tel').focus();return}
   if(!$('aceite').checked){er.textContent='Marque a autorização para criar o cartão.';$('aceite').focus();return}
-  er.textContent='';est.nome=nome;est.tel=tel;gravar();desenhar();
-  if(seloPendente){seloPendente=false;carimbar()}else $('aviso-selo').textContent='Cartão criado. Seu primeiro selo entra na próxima visita.';
+  const envio=e.target.querySelector('[type=submit]');envio.disabled=true;er.textContent='';
+  let r;try{r=await rpc('cartao_entrar',{p_nome:nome,p_telefone:tel,p_aceite:true})}catch(x){er.textContent=SEM_CONEXAO;return}finally{envio.disabled=false}
+  if(r.status==='nome_invalido'){er.textContent='Escreva nome e sobrenome.';$('nome').focus();return}
+  if(r.status==='telefone_invalido'){er.textContent='Confira o WhatsApp: DDD e número, 10 ou 11 dígitos.';$('tel').focus();return}
+  if(r.status==='sem_aceite'){er.textContent='Marque a autorização para criar o cartão.';$('aceite').focus();return}
+  aplicar(r);desenhar();
+  if(seloPendente){seloPendente=false;carimbar()}else $('aviso-selo').textContent=r.novo?'Cartão criado. Seu primeiro selo entra na próxima visita.':'Encontramos o seu cartão.';
 });
 $('simular').onclick=abrirLeitor;
-$('amanha').onclick=()=>{est.salto++;gravar();$('aviso-selo').textContent='Demonstração: agora é '+hoje().split('-').reverse().join('/')+'.'};
-$('zerar').onclick=()=>{est={nome:'',tel:'',selos:[],salto:0};try{localStorage.removeItem(CHAVE)}catch(e){}$('cadastro').reset();desenhar()};
-$('novo-cartao').onclick=()=>{est.selos=[];gravar();desenhar();$('aviso-selo').textContent='Novo cartão aberto.'};
+$('novo-cartao').onclick=async()=>{const av=$('aviso-selo');
+  let r;try{r=await rpc('cartao_novo',{p_telefone:est.tel})}catch(e){av.textContent=SEM_CONEXAO;return}
+  if(r.status==='sem_cadastro'){esquecer();desenhar();return}
+  aplicar(r);desenhar();if(r.status==='ok')av.textContent='Novo cartão aberto.'};
 desenhar();
-if(seloPendente){ir('cliente');if(est.nome){seloPendente=false;carimbar()}}
+(async()=>{
+  if(seloPendente)ir('cliente');
+  if(!est.tel)return;
+  if(seloPendente){seloPendente=false;carimbar();return}
+  try{const r=await rpc('cartao_ver',{p_telefone:est.tel});
+    if(r.status==='ok')aplicar(r);else if(r.status==='sem_cadastro')esquecer();
+    desenhar()}catch(e){}
+})();
 </script>
 
 </body>
