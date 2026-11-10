@@ -4,18 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Cherie Be, Tucuruvi, São Paulo. Folheie a revista de procedimentos, toque no serviço e reserve seu momento pelo WhatsApp.">
-<meta property="og:title" content="Cherie Be">
+<meta property="og:title" content="Cherie Be - Unhas, Cílios e Sobrancelhas">
+<meta property="og:site_name" content="Cherie Be">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://matheusrafaella.github.io/CHERIEBE/">
+<meta property="og:locale" content="pt_BR">
 <meta property="og:description" content="Revista de procedimentos, pacotes e cartão fidelidade.">
-<meta property="og:image" content="pages/p01.jpg">
+<meta property="og:image" content="https://matheusrafaella.github.io/CHERIEBE/pages/p01.jpg?v=2">
+<meta property="og:image:width" content="1191">
+<meta property="og:image:height" content="1685">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cherie Be - Unhas, Cílios e Sobrancelhas">
 <link rel="icon" href="selo.svg" type="image/svg+xml">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icones/apple-180.png">
+<link rel="manifest" href="manifest.webmanifest?v=2">
+<link rel="apple-touch-icon" href="icones/apple-180.png?v=2">
 <meta name="theme-color" content="#F4EFE7">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Cherie Be">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Cherie Be Revista</title>
+<title>Cherie Be - Unhas, Cílios e Sobrancelhas</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@400;500&display=swap">
 <style>
 /* Layout: capa editorial curta em papel, a revista aberta sobre uma mesa escura, depois listas com fios como no catálogo impresso. Visual único da marca, sem tema escuro. */
@@ -200,8 +208,8 @@ form{display:grid;gap:14px}
 .app-s{color:var(--suave);font-size:.92rem;margin-top:4px!important}
 .app-instalar .btn{grid-column:1/-1}
 @media (min-width:600px){.app-instalar .w{grid-template-columns:auto minmax(0,1fr) auto}.app-instalar .btn{grid-column:auto}}
-#guia{position:fixed;inset:0;z-index:195;background:rgba(30,25,21,.72);display:grid;align-items:end;justify-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:surge .25s ease both}
-@media (min-width:600px){#guia{align-items:center}}
+#guia,#confirma{position:fixed;inset:0;z-index:195;background:rgba(30,25,21,.72);display:grid;align-items:end;justify-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:surge .25s ease both}
+@media (min-width:600px){#guia,#confirma{align-items:center}}
 .guia-cx{position:relative;width:min(100%,440px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--papel);color:var(--tinta);padding:24px 22px 22px;display:grid;gap:16px}
 .guia-cx p{margin:0}
 .guia-cx h3{font:italic 400 1.7rem/1.1 var(--display);margin:0;padding-right:36px}
@@ -211,6 +219,17 @@ form{display:grid;gap:14px}
 .guia-cx li svg{width:18px;height:18px;vertical-align:-3px}
 .guia-acoes{display:grid;gap:8px}
 .guia-acoes:empty{display:none}
+.banner-app{position:fixed;z-index:120;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:auto minmax(0,1fr) auto 32px;align-items:center;gap:12px;padding:12px 4px 12px 12px;background:var(--tinta);color:var(--papel);box-shadow:0 12px 32px rgba(30,25,21,.4);animation:banner .5s cubic-bezier(.3,.7,.25,1) both}
+@keyframes banner{from{transform:translateY(140%)}}
+.banner-app img{width:46px;height:46px;border-radius:11px;border:1px solid rgba(210,182,129,.45)}
+.banner-app p{margin:0;display:grid;gap:2px;line-height:1.2}
+.banner-app b{font:italic 400 1.15rem/1.1 var(--display)}
+.banner-app span{font-size:.8rem;color:var(--areia)}
+.banner-app .btn{min-height:42px;padding:0 14px;background:var(--ouro);border-color:var(--ouro);color:var(--tinta);font-size:.72rem}
+.banner-app .btn:hover{background:var(--papel);border-color:var(--papel)}
+.banner-app .fechar-x{position:static;width:32px;height:42px;font-size:1.6rem;color:var(--papel)}
+body.com-banner{padding-bottom:100px}
+@media (min-width:900px){.banner-app{display:none}body.com-banner{padding-bottom:0}}
 #voador{position:fixed;z-index:210;margin:0;max-width:none;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));transform-origin:0 0}
 .premio{border-top:1px solid var(--tinta);padding-top:18px;display:grid;gap:12px}
 .premio p{margin:0}
@@ -266,7 +285,7 @@ form{display:grid;gap:14px}
 </section>
 
 <section class="app-instalar" id="app" hidden aria-label="App Cherie Be"><div class="w">
-  <img src="icones/icone-192.png" alt="" width="56" height="56">
+  <img src="icones/icone-192.png?v=2" alt="" width="56" height="56">
   <div><p class="rotulo">App Cherie Be</p><p class="app-t">Reserve seu momento em um toque.</p><p class="app-s">Coloque a Cherie Be na tela do seu celular e agende sempre que lembrar.</p></div>
   <button class="btn cheio" id="instalar" type="button">Adicionar à tela inicial</button>
 </div></section>
@@ -335,6 +354,22 @@ form{display:grid;gap:14px}
     <div class="barra sobe"><i id="festa-barra"></i></div>
     <p class="sobe" id="festa-pct">10% do progresso</p>
     <button class="btn sobe" id="festa-ok" type="button">Continuar</button>
+  </div>
+</div>
+
+<div class="banner-app" id="banner-app" hidden role="region" aria-label="App Cherie Be">
+  <img src="icones/icone-192.png?v=2" alt="" width="46" height="46">
+  <p><b>Cherie Be na sua tela</b><span>Agende seu momento em um toque.</span></p>
+  <button class="btn" id="banner-sim" type="button">Adicionar</button>
+  <button class="fechar-x" id="banner-x" type="button" aria-label="Fechar aviso">&times;</button>
+</div>
+
+<div id="confirma" hidden role="alertdialog" aria-modal="true" aria-labelledby="confirma-t" aria-describedby="confirma-p">
+  <div class="guia-cx">
+    <button class="fechar-x" id="confirma-x" type="button" aria-label="Fechar">&times;</button>
+    <h3 id="confirma-t"></h3>
+    <p id="confirma-p"></p>
+    <div class="guia-acoes"><button class="btn cheio" id="confirma-nao" type="button"></button><button class="btn" id="confirma-sim" type="button"></button></div>
   </div>
 </div>
 
@@ -602,7 +637,7 @@ async function abrirLeitor(){
   }
 }
 $('leitor-fechar').onclick=fecharLeitor;$('leitor-x').onclick=fecharLeitor;
-addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('leitor').hidden)fecharLeitor();if(!$('guia').hidden)fecharGuia()});
+addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(confirmaFim)return confirmaFim(false);if(!$('leitor').hidden)fecharLeitor();if(!$('guia').hidden)fecharGuia()});
 let carimbando=false;
 async function carimbar(){
   const av=$('aviso-selo');
@@ -633,9 +668,19 @@ $('cadastro').addEventListener('submit',async e=>{e.preventDefault();
   aplicar(r);desenhar();
   if(seloPendente){seloPendente=false;carimbar()}else $('aviso-selo').textContent=r.novo?'Cartão criado. Seu primeiro selo entra na próxima visita.':'Encontramos o seu cartão.';
 });
+/* Ações sem volta pedem confirmação. O botão seguro (não fazer nada) vem primeiro e recebe o foco. */
+let confirmaFim=null;
+function confirmar(titulo,texto,nao,sim){return new Promise(res=>{
+  const d=$('confirma');$('confirma-t').textContent=titulo;$('confirma-p').textContent=texto;$('confirma-nao').textContent=nao;$('confirma-sim').textContent=sim;
+  const fim=v=>{d.hidden=true;confirmaFim=null;res(v)};confirmaFim=fim;
+  $('confirma-sim').onclick=()=>fim(true);$('confirma-nao').onclick=()=>fim(false);$('confirma-x').onclick=()=>fim(false);d.onclick=e=>{if(e.target===d)fim(false)};
+  d.hidden=false;$('confirma-nao').focus({preventScroll:true})})}
 $('simular').onclick=abrirLeitor;
-$('sair').onclick=()=>{esquecer();$('cadastro').reset();$('aviso-selo').textContent='';desenhar();$('nome').focus({preventScroll:true})};
+$('sair').onclick=async()=>{
+  if(!await confirmar('Sair do cartão?','Você sairá do seu cartão neste aparelho. Seus selos continuam guardados, e para ver o cartão de novo é só entrar com o seu WhatsApp.','Continuar no cartão','Sair'))return;
+  esquecer();$('cadastro').reset();$('aviso-selo').textContent='';desenhar();$('nome').focus({preventScroll:true})};
 $('novo-cartao').onclick=async()=>{const av=$('aviso-selo');
+  if(!await confirmar('Começar um novo cartão?','Use só depois de resgatar seus 20% off no salão. Os 10 selos deste cartão serão zerados e isso não pode ser desfeito.','Voltar ao cartão','Zerar e começar'))return;
   let r;try{r=await rpc('cartao_novo',{p_telefone:est.tel})}catch(e){av.textContent=SEM_CONEXAO;return}
   if(r.status==='sem_cadastro'){esquecer();desenhar();return}
   aplicar(r);desenhar();if(r.status==='ok')av.textContent='Novo cartão aberto.'};
@@ -661,8 +706,15 @@ const LINK=location.origin+location.pathname;
 const ICO_COMP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4"/><path d="M7 10H5v11h14V10h-2"/></svg>';
 let pedido=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();pedido=e});
-addEventListener('appinstalled',()=>{$('app').hidden=true;fecharGuia()});
+addEventListener('appinstalled',()=>{esconderApp();fecharGuia()});
 $('app').hidden=instalado()||!(IOS||ANDROID);
+function esconderApp(){$('app').hidden=true;$('banner-app').hidden=true;document.body.classList.remove('com-banner')}
+/* Banner fixo no rodapé do celular. Quem fechar não vê de novo por 7 dias; a faixa no meio da página continua. */
+const BANNER_FECHADO='cheriebe_banner_fechado';
+(()=>{if($('app').hidden)return;let f=0;try{f=+localStorage.getItem(BANNER_FECHADO)||0}catch(e){}
+  if(Date.now()-f<7*864e5)return;
+  setTimeout(()=>{if($('app').hidden)return;$('banner-app').hidden=false;document.body.classList.add('com-banner')},2500)})();
+$('banner-x').onclick=()=>{$('banner-app').hidden=true;document.body.classList.remove('com-banner');try{localStorage.setItem(BANNER_FECHADO,String(Date.now()))}catch(e){}};
 function abrirGuia(titulo,passos,acoes){
   $('guia-t').textContent=titulo;
   $('guia-passos').innerHTML=passos.map(p=>'<li><span>'+p+'</span></li>').join('');
@@ -677,8 +729,8 @@ function botaoCopiar(){
   b.onclick=async()=>{try{await navigator.clipboard.writeText(LINK);b.textContent='Link copiado. Cole no navegador.'}catch(e){b.textContent=LINK;b.style.textTransform='none'}};
   return b;
 }
-$('instalar').onclick=async()=>{
-  if(pedido){const p=pedido;pedido=null;p.prompt();try{if((await p.userChoice).outcome==='accepted')$('app').hidden=true}catch(e){}return}
+async function instalar(){
+  if(pedido){const p=pedido;pedido=null;p.prompt();try{if((await p.userChoice).outcome==='accepted')esconderApp()}catch(e){}return}
   if(INTERNO&&IOS)return abrirGuia('Abra no Safari primeiro',[
     'Toque nos três pontinhos <b>•••</b> no canto da tela.',
     'Escolha <b>Abrir no navegador externo</b> (ou <b>Abrir no Safari</b>).',
@@ -699,7 +751,8 @@ $('instalar').onclick=async()=>{
     'Toque nos três pontinhos <b>⋮</b> no canto de cima do navegador.',
     'Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.',
     'Confirme em <b>Instalar</b>. O ícone da Cherie Be aparece na sua tela.'],[]);
-};
+}
+$('instalar').onclick=instalar;$('banner-sim').onclick=instalar;
 </script>
 
 </body>
