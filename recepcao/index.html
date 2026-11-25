@@ -93,6 +93,16 @@ p{margin:0}
 .dados div{display:flex;justify-content:space-between;gap:12px}
 .dados dt{color:var(--suave)}
 .dados dd{margin:0;text-align:right;font-weight:500}
+.vaga.cheia.antigo span{font-style:italic}
+/* cartão de papel */
+.antigo{border-top:1px solid var(--fio);padding-top:14px;display:grid;gap:12px}
+.antigo .rotulo{color:var(--cera)}
+.antigo-txt{color:var(--suave);font-size:.92rem}
+.qtds{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.qtds button{min-height:48px;border:1px solid var(--fio);background:var(--branco);color:var(--tinta);font:400 1.35rem/1 var(--display);font-variant-numeric:lining-nums;cursor:pointer}
+.qtds button[aria-pressed="true"]{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.acoes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ok-msg{color:#3F6B3A;font-weight:500}
 </style>
 </head>
 <body>
@@ -134,6 +144,19 @@ p{margin:0}
     <h2 id="d-nome"></h2>
     <div class="vagas" id="d-vagas" aria-label="Selos do cartão atual"></div>
     <dl class="dados" id="d-dados"></dl>
+    <section class="antigo" id="d-antigo" hidden aria-labelledby="d-ant-tit">
+      <div><p class="rotulo" id="d-ant-tit">Cartão de papel</p><p class="antigo-txt" id="d-ant-txt"></p></div>
+      <button class="btn" id="d-ant-abrir" type="button">Lançar selos do cartão antigo</button>
+      <div id="d-ant-escolha" hidden>
+        <div style="display:grid;gap:12px">
+          <p>Quantos selos ela tem no cartão de papel?</p>
+          <div class="qtds" id="d-ant-qtds" role="group" aria-label="Quantidade de selos"></div>
+          <p class="antigo-txt">Confira o cartão de papel antes de lançar e recolha ele depois.</p>
+          <div class="acoes"><button class="btn" id="d-ant-cancelar" type="button">Cancelar</button><button class="btn cheio" id="d-ant-ok" type="button" disabled>Lançar</button></div>
+        </div>
+      </div>
+      <p class="aviso" id="d-ant-msg" role="status"></p>
+    </section>
     <a class="btn" id="d-wa" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
   </div>
 </div>
@@ -222,13 +245,15 @@ function desenhar(){
 }
 async function abrir(c){
   $('d-nome').textContent=c.nome;$('d-rotulo').textContent=c.selos+' de '+META+' selos';
-  const v=$('d-vagas');v.textContent='';const dd=$('d-dados');dd.textContent='Carregando...';
+  const v=$('d-vagas');v.textContent='';const dd=$('d-dados');dd.textContent='Carregando...';$('d-antigo').hidden=true;
   $('d-wa').href='https://wa.me/55'+c.telefone;
   $('detalhe').hidden=false;$('d-fechar').focus({preventScroll:true});
   let r;try{r=await rpc('recepcao_cliente',{p_id:c.id})}catch(e){dd.textContent='Não foi possível carregar agora.';return}
   if(!r||r.status!=='ok'){dd.textContent='Não foi possível carregar agora.';return}
   for(let i=0;i<META;i++){const s=r.cartao[i],x=document.createElement('div');x.className='vaga'+(s?' cheia':'');
-    if(s){const sp=document.createElement('span');sp.textContent=dataBr(s.data);x.appendChild(sp);x.title='Check-in em '+dataHora(s.em)}else x.textContent=i+1;v.appendChild(x)}
+    if(s&&s.antigo){x.classList.add('antigo');const sp=document.createElement('span');sp.textContent='papel';x.appendChild(sp);x.title='Selo do cartão antigo, lançado em '+dataHora(s.em)}
+    else if(s){const sp=document.createElement('span');sp.textContent=dataBr(s.data);x.appendChild(sp);x.title='Check-in em '+dataHora(s.em)}else x.textContent=i+1;v.appendChild(x)}
+  prepararAntigo(c,r.cartao);
   dd.textContent='';
   const linha=(a,b)=>{const d=document.createElement('div'),t=document.createElement('dt'),e=document.createElement('dd');t.textContent=a;e.textContent=b;d.append(t,e);dd.appendChild(d)};
   linha('WhatsApp',fone(c.telefone));
@@ -237,6 +262,38 @@ async function abrir(c){
   linha('Último check-in',c.ultimo?(c.ultimo===hoje?'Hoje':dataBr(c.ultimo)):'Nenhum ainda');
   linha('Presentes resgatados',r.resgates.length?r.resgates.length+' (último em '+dataHora(r.resgates[0].em).slice(0,10)+')':'Nenhum ainda');
 }
+/* Cartão de papel: a recepção diz quantos selos a cliente tinha. Lançar de novo corrige o número (0 desfaz). */
+let antigo={c:null,atual:0,max:0,escolha:null};
+function prepararAntigo(c,cartao){
+  const atual=cartao.filter(s=>s.antigo).length,novos=cartao.length-atual,max=Math.min(9,META-novos);
+  antigo={c,atual,max,escolha:null};
+  $('d-ant-txt').textContent=atual?atual+(atual===1?' selo lançado':' selos lançados')+' do cartão antigo.':max>0?'Se ela tinha o cartão antigo, lance os selos dele aqui.':'O cartão dela já está completo.';
+  $('d-ant-abrir').textContent=atual?'Corrigir selos do cartão antigo':'Lançar selos do cartão antigo';
+  $('d-ant-abrir').hidden=max<1&&!atual;$('d-ant-escolha').hidden=true;$('d-antigo').hidden=false;
+}
+function mostrarEscolha(){
+  const q=$('d-ant-qtds');q.textContent='';
+  for(let n=antigo.atual?0:1;n<=antigo.max;n++){const b=document.createElement('button');b.type='button';b.textContent=n;b.setAttribute('aria-pressed','false');
+    if(n===0)b.setAttribute('aria-label','Nenhum, desfazer');
+    b.onclick=()=>{antigo.escolha=n;q.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      const ok=$('d-ant-ok');ok.disabled=n===antigo.atual;ok.textContent=n===0?'Desfazer':'Lançar '+n+(n===1?' selo':' selos')};
+    q.appendChild(b)}
+  $('d-ant-ok').disabled=true;$('d-ant-ok').textContent='Lançar';
+  $('d-ant-abrir').hidden=true;$('d-ant-escolha').hidden=false;$('d-ant-msg').textContent='';$('d-ant-msg').className='aviso';
+}
+$('d-ant-abrir').onclick=mostrarEscolha;
+$('d-ant-cancelar').onclick=()=>{$('d-ant-escolha').hidden=true;$('d-ant-abrir').hidden=false};
+$('d-ant-ok').onclick=async()=>{
+  const n=antigo.escolha,c=antigo.c,ok=$('d-ant-ok'),msg=$('d-ant-msg');if(n==null||!c)return;
+  ok.disabled=true;msg.className='aviso';msg.textContent='Salvando...';
+  let r;try{r=await rpc('recepcao_selos_antigos',{p_id:c.id,p_qtd:n})}catch(e){r=null}
+  if(!r||r.status!=='ok'){ok.disabled=false;msg.className='aviso erro';
+    msg.textContent=r&&r.status==='passa_de_10'?'Assim passaria de 10 selos. Escolha um número menor.':r&&r.status==='sem_acesso'?'Sem permissão para lançar.':'Não foi possível salvar agora. Tente de novo.';return}
+  await carregar();
+  const nova=clientes.find(x=>x.id===c.id)||Object.assign({},c,{selos:r.selos});
+  await abrir(nova);
+  $('d-ant-msg').className='aviso ok-msg';$('d-ant-msg').textContent=n?'Pronto! '+n+(n===1?' selo do cartão antigo lançado.':' selos do cartão antigo lançados.'):'Lançamento desfeito.';
+};
 function fecharDetalhe(){$('detalhe').hidden=true}
 $('d-fechar').onclick=fecharDetalhe;
 $('detalhe').addEventListener('click',e=>{if(e.target===$('detalhe'))fecharDetalhe()});
