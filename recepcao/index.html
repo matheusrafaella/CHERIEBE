@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F4EFE7">
+<link rel="icon" href="../selo.png?v=4" type="image/png">
+<title>Recepção Cherie Be</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@400;500&display=swap">
+<style>
+/* Página interna da recepção: mesma linguagem do site (papel, tinta, fios finos), pensada para o celular ou tablet do balcão. */
+:root{
+  --papel:#F4EFE7; --tinta:#1E1915; --ouro:#D2B681; --bege:#E0DBCD; --fio:#B9AC97; --suave:#6B6154; --cera:#8C6A3F; --erro:#8A2B1D; --branco:#FFFDF9;
+  --display:'Bodoni Moda','Didot','Bodoni MT',Georgia,serif; --texto:'Jost','Helvetica Neue',Arial,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 1rem/1.5 var(--texto)}
+[hidden]{display:none!important}
+.w{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--tinta);outline-offset:3px}
+.rotulo{font:500 .72rem/1.3 var(--texto);letter-spacing:.22em;text-transform:uppercase}
+h1,h2{font-family:var(--display);font-style:italic;font-weight:400;line-height:1.05;margin:0}
+p{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border:1px solid var(--tinta);background:transparent;color:var(--tinta);font:500 .78rem var(--texto);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.btn.cheio{background:var(--tinta);color:var(--papel)}
+.btn:disabled{opacity:.5;cursor:default}
+.elo{background:none;border:0;padding:0;font:inherit;color:var(--suave);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+.topo{border-bottom:1px solid var(--fio)}
+.topo .w{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.marca{display:flex;align-items:center;gap:12px}
+.marca img{height:34px;width:auto;display:block}
+.marca .rotulo{color:var(--cera);padding-left:12px;border-left:1px solid var(--fio)}
+
+/* entrar */
+.entrar .w{padding-block:48px;display:grid;justify-items:center}
+.caixa{width:min(100%,420px);background:var(--branco);border:1px solid var(--fio);padding:28px 24px;display:grid;gap:16px}
+.caixa h1{font-size:2rem}
+.campo{display:grid;gap:6px}
+.campo label{font:500 .72rem var(--texto);letter-spacing:.18em;text-transform:uppercase}
+.campo input{font:400 1.05rem var(--texto);color:var(--tinta);background:transparent;border:0;border-bottom:1px solid var(--tinta);border-radius:0;padding:8px 0;width:100%}
+.campo input:focus-visible{outline:none;border-bottom-width:2px}
+.aviso{min-height:1.5em;font-weight:500}
+.aviso.erro{color:var(--erro)}
+
+/* painel */
+.painel .w{padding-block:28px 56px;display:grid;gap:22px}
+.cab{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--tinta);padding-bottom:12px}
+.cab h1{font-size:clamp(2rem,7vw,2.8rem)}
+.cab small{color:var(--suave);font-size:.85rem}
+.numeros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:640px){.numeros{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.num{background:var(--branco);border:1px solid var(--fio);padding:14px;text-align:left;cursor:pointer;font:inherit;color:inherit;display:grid;gap:4px}
+.num b{font:400 2.2rem/1 var(--display);font-variant-numeric:lining-nums}
+.num span{font:500 .68rem/1.3 var(--texto);letter-spacing:.16em;text-transform:uppercase;color:var(--suave)}
+.num[aria-pressed="true"]{border-color:var(--tinta);box-shadow:inset 0 0 0 1px var(--tinta)}
+.busca input{width:100%;font:400 1rem var(--texto);padding:12px 14px;border:1px solid var(--fio);background:var(--branco);color:var(--tinta);border-radius:0}
+.busca input:focus-visible{outline:2px solid var(--tinta);outline-offset:0}
+.lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--tinta)}
+.lista li{border-bottom:1px solid var(--fio)}
+.linha{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;align-items:center;padding:14px 4px;background:none;border:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.linha:hover{background:rgba(224,219,205,.5)}
+.linha strong{font:400 1.25rem/1.2 var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.linha .sub{grid-column:1;color:var(--suave);font-size:.88rem}
+.linha .conta{grid-row:1/3;grid-column:2;display:grid;justify-items:end;gap:6px}
+.conta b{font:400 1.4rem/1 var(--display);font-variant-numeric:lining-nums}
+.conta b small{font:400 .8rem var(--texto);color:var(--suave)}
+.pontos{display:flex;gap:3px}
+.pontos i{width:7px;height:7px;border-radius:50%;border:1px solid var(--fio)}
+.pontos i.c{background:var(--cera);border-color:var(--cera)}
+.etiqueta{font:500 .62rem/1 var(--texto);letter-spacing:.14em;text-transform:uppercase;padding:4px 6px;border:1px solid currentColor}
+.etiqueta.perto{color:var(--cera)}
+.etiqueta.completo{color:var(--papel);background:var(--tinta);border-color:var(--tinta)}
+.etiqueta.hoje{color:#3F6B3A}
+.vazio{padding:28px 4px;color:var(--suave)}
+.rodape-painel{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--suave);font-size:.85rem}
+
+/* detalhe */
+#detalhe{position:fixed;inset:0;z-index:50;background:rgba(30,25,21,.6);display:grid;align-items:end;justify-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+@media (min-width:640px){#detalhe{align-items:center}}
+.ficha{position:relative;width:min(100%,520px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--papel);padding:24px 22px;display:grid;gap:16px}
+.ficha h2{font-size:2rem;padding-right:40px}
+.fechar{position:absolute;top:8px;right:8px;width:44px;height:44px;border:0;background:none;font:300 2rem/1 var(--texto);color:var(--tinta);cursor:pointer}
+.vagas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.vaga{aspect-ratio:1;border:1px dashed var(--fio);border-radius:50%;display:grid;place-items:center;text-align:center;font:500 .72rem/1.15 var(--texto);color:var(--suave)}
+.vaga.cheia{border:0;background:url(../selo.png?v=4) center/contain no-repeat;color:var(--tinta)}
+.vaga.cheia span{background:rgba(255,253,249,.85);padding:1px 4px;border-radius:3px;font-size:.66rem}
+.dados{display:grid;gap:8px;border-top:1px solid var(--fio);padding-top:14px}
+.dados div{display:flex;justify-content:space-between;gap:12px}
+.dados dt{color:var(--suave)}
+.dados dd{margin:0;text-align:right;font-weight:500}
+</style>
+</head>
+<body>
+<header class="topo"><div class="w">
+  <div class="marca"><img src="../logo.svg" alt="Cherie Be" width="99" height="34"><span class="rotulo">Recepção</span></div>
+  <button class="elo" id="sair" type="button" hidden>Sair</button>
+</div></header>
+
+<main>
+<section class="entrar" id="entrar"><div class="w">
+  <form class="caixa" id="form-entrar" novalidate>
+    <p class="rotulo" style="color:var(--cera)">Check-in Cherie</p>
+    <h1>Entrar na recepção</h1>
+    <div class="campo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" inputmode="email" required></div>
+    <div class="campo"><label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" required></div>
+    <button class="btn cheio" type="submit">Entrar</button>
+    <p class="aviso erro" id="erro-entrar" role="alert"></p>
+  </form>
+</div></section>
+
+<section class="painel" id="painel" hidden><div class="w">
+  <div class="cab"><h1>Clientes</h1><small id="atualizado"></small></div>
+  <div class="numeros" role="group" aria-label="Filtros">
+    <button class="num" type="button" data-f="todas" aria-pressed="true"><b id="n-todas">0</b><span>Clientes</span></button>
+    <button class="num" type="button" data-f="hoje" aria-pressed="false"><b id="n-hoje">0</b><span>Check-ins hoje</span></button>
+    <button class="num" type="button" data-f="perto" aria-pressed="false"><b id="n-perto">0</b><span>Perto do presente</span></button>
+    <button class="num" type="button" data-f="completo" aria-pressed="false"><b id="n-completo">0</b><span>Cartão completo</span></button>
+  </div>
+  <div class="busca"><input id="busca" type="search" placeholder="Buscar por nome ou WhatsApp" aria-label="Buscar por nome ou WhatsApp" autocomplete="off"></div>
+  <ul class="lista" id="lista"></ul>
+  <div class="rodape-painel"><span id="contagem"></span><button class="elo" id="atualizar" type="button">Atualizar agora</button></div>
+</div></section>
+</main>
+
+<div id="detalhe" hidden role="dialog" aria-modal="true" aria-labelledby="d-nome">
+  <div class="ficha">
+    <button class="fechar" id="d-fechar" type="button" aria-label="Fechar">&times;</button>
+    <p class="rotulo" id="d-rotulo" style="color:var(--cera)"></p>
+    <h2 id="d-nome"></h2>
+    <div class="vagas" id="d-vagas" aria-label="Selos do cartão atual"></div>
+    <dl class="dados" id="d-dados"></dl>
+    <a class="btn" id="d-wa" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+  </div>
+</div>
+
+<script>
+/* Login pelo Supabase Auth. Os dados só chegam se o e-mail estiver na tabela equipe (regra no banco). */
+const SUPA_URL='https://bowakhtfopjckwfcgyxu.supabase.co',SUPA_CHAVE='sb_publishable_lp2uSWDaYq-qicSm5ptDxQ_bnh6ewOX',META=10;
+const SESSAO='cheriebe_recepcao_sessao';
+const $=id=>document.getElementById(id);
+let sessao=null,clientes=[],hoje='',filtro='todas',timer=0;
+try{sessao=JSON.parse(localStorage.getItem(SESSAO))}catch(e){}
+const guardar=s=>{sessao=s;try{s?localStorage.setItem(SESSAO,JSON.stringify(s)):localStorage.removeItem(SESSAO)}catch(e){}};
+
+async function pedir(url,op){
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),12000);
+  try{const r=await fetch(url,Object.assign({signal:c.signal},op));let j=null;try{j=await r.json()}catch(e){}return {ok:r.ok,status:r.status,j}}
+  finally{clearTimeout(t)}
+}
+async function token(grant,body){
+  const r=await pedir(SUPA_URL+'/auth/v1/token?grant_type='+grant,{method:'POST',headers:{apikey:SUPA_CHAVE,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok||!r.j||!r.j.access_token)return null;
+  return {access_token:r.j.access_token,refresh_token:r.j.refresh_token,expires_at:r.j.expires_at||Math.floor(Date.now()/1000)+(r.j.expires_in||3600),email:(r.j.user&&r.j.user.email)||''};
+}
+async function valido(){
+  if(!sessao)return false;
+  if(sessao.expires_at-90>Date.now()/1000)return true;
+  const n=await token('refresh_token',{refresh_token:sessao.refresh_token});
+  if(!n){guardar(null);return false}
+  guardar(n);return true;
+}
+async function rpc(fn,args){
+  if(!await valido())throw new Error('sessao');
+  const r=await pedir(SUPA_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SUPA_CHAVE,Authorization:'Bearer '+sessao.access_token,'Content-Type':'application/json'},body:JSON.stringify(args||{})});
+  if(r.status===401){guardar(null);throw new Error('sessao')}
+  if(!r.ok)throw new Error('http '+r.status);
+  return r.j;
+}
+
+function mostrar(logado){$('entrar').hidden=logado;$('painel').hidden=!logado;$('sair').hidden=!logado}
+const fone=t=>t.length===11?'('+t.slice(0,2)+') '+t.slice(2,7)+'-'+t.slice(7):'('+t.slice(0,2)+') '+t.slice(2,6)+'-'+t.slice(6);
+const dataBr=d=>{if(!d)return '';const [a,m,dd]=String(d).slice(0,10).split('-');return dd+'/'+m+(a!==hoje.slice(0,4)?'/'+a:'')};
+const dataHora=s=>new Date(s).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const semAcento=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const tipo=c=>c.selos>=META?'completo':c.selos>=8?'perto':'';
+
+async function carregar(){
+  let r;try{r=await rpc('recepcao_clientes')}catch(e){
+    if(e.message==='sessao'){mostrar(false);$('erro-entrar').textContent='Sua sessão terminou. Entre de novo.';return}
+    $('atualizado').textContent='Sem conexão agora. Tentando de novo em instantes.';return}
+  if(!r||r.status==='sem_acesso'){guardar(null);mostrar(false);$('erro-entrar').textContent='Este e-mail ainda não tem acesso à recepção.';return}
+  clientes=r.clientes||[];hoje=r.hoje||'';
+  $('n-todas').textContent=clientes.length;
+  $('n-hoje').textContent=clientes.filter(c=>c.ultimo===hoje).length;
+  $('n-perto').textContent=clientes.filter(c=>tipo(c)==='perto').length;
+  $('n-completo').textContent=clientes.filter(c=>tipo(c)==='completo').length;
+  $('atualizado').textContent='Atualizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  desenhar();
+}
+function desenhar(){
+  const q=semAcento($('busca').value.trim()),dig=q.replace(/\D/g,'');
+  const vis=clientes.filter(c=>{
+    if(filtro==='hoje'&&c.ultimo!==hoje)return false;
+    if(filtro==='perto'&&tipo(c)!=='perto')return false;
+    if(filtro==='completo'&&tipo(c)!=='completo')return false;
+    if(!q)return true;
+    return semAcento(c.nome).includes(q)||(dig.length>=3&&c.telefone.includes(dig));
+  });
+  const ul=$('lista');ul.textContent='';
+  if(!vis.length){const li=document.createElement('li');li.className='vazio';li.textContent=clientes.length?'Nenhuma cliente encontrada.':'Ainda não há clientes cadastradas.';ul.appendChild(li)}
+  vis.forEach(c=>{
+    const li=document.createElement('li'),b=document.createElement('button');b.type='button';b.className='linha';
+    const nome=document.createElement('strong');nome.textContent=c.nome;
+    const sub=document.createElement('span');sub.className='sub';
+    sub.textContent=fone(c.telefone)+(c.ultimo?' · último check-in '+(c.ultimo===hoje?'hoje':dataBr(c.ultimo)):' · sem check-in ainda');
+    const conta=document.createElement('span');conta.className='conta';
+    const n=document.createElement('b');n.textContent=c.selos;const de=document.createElement('small');de.textContent=' / '+META;n.appendChild(de);
+    const pts=document.createElement('span');pts.className='pontos';pts.setAttribute('aria-hidden','true');
+    for(let i=0;i<META;i++){const p=document.createElement('i');if(i<c.selos)p.className='c';pts.appendChild(p)}
+    conta.append(n,pts);
+    const t=tipo(c);if(t||c.ultimo===hoje){const e=document.createElement('span');e.className='etiqueta '+(t||'hoje');e.textContent=t==='completo'?'Completo':t==='perto'?'Perto':'Hoje';conta.appendChild(e)}
+    b.append(nome,conta,sub);b.setAttribute('aria-label',c.nome+', '+c.selos+' de '+META+' selos');
+    b.onclick=()=>abrir(c);li.appendChild(b);ul.appendChild(li)});
+  $('contagem').textContent=vis.length+(vis.length===1?' cliente':' clientes')+(filtro!=='todas'||q?' neste filtro':'');
+}
+async function abrir(c){
+  $('d-nome').textContent=c.nome;$('d-rotulo').textContent=c.selos+' de '+META+' selos';
+  const v=$('d-vagas');v.textContent='';const dd=$('d-dados');dd.textContent='Carregando...';
+  $('d-wa').href='https://wa.me/55'+c.telefone;
+  $('detalhe').hidden=false;$('d-fechar').focus({preventScroll:true});
+  let r;try{r=await rpc('recepcao_cliente',{p_id:c.id})}catch(e){dd.textContent='Não foi possível carregar agora.';return}
+  if(!r||r.status!=='ok'){dd.textContent='Não foi possível carregar agora.';return}
+  for(let i=0;i<META;i++){const s=r.cartao[i],x=document.createElement('div');x.className='vaga'+(s?' cheia':'');
+    if(s){const sp=document.createElement('span');sp.textContent=dataBr(s.data);x.appendChild(sp);x.title='Check-in em '+dataHora(s.em)}else x.textContent=i+1;v.appendChild(x)}
+  dd.textContent='';
+  const linha=(a,b)=>{const d=document.createElement('div'),t=document.createElement('dt'),e=document.createElement('dd');t.textContent=a;e.textContent=b;d.append(t,e);dd.appendChild(d)};
+  linha('WhatsApp',fone(c.telefone));
+  linha('Cliente desde',dataHora(c.criado_em).slice(0,10));
+  linha('Visitas no total',String(r.historico));
+  linha('Último check-in',c.ultimo?(c.ultimo===hoje?'Hoje':dataBr(c.ultimo)):'Nenhum ainda');
+  linha('Presentes resgatados',r.resgates.length?r.resgates.length+' (último em '+dataHora(r.resgates[0].em).slice(0,10)+')':'Nenhum ainda');
+}
+function fecharDetalhe(){$('detalhe').hidden=true}
+$('d-fechar').onclick=fecharDetalhe;
+$('detalhe').addEventListener('click',e=>{if(e.target===$('detalhe'))fecharDetalhe()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('detalhe').hidden)fecharDetalhe()});
+document.querySelectorAll('.num').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;document.querySelectorAll('.num').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));desenhar()});
+$('busca').addEventListener('input',desenhar);
+$('atualizar').onclick=carregar;
+
+$('form-entrar').addEventListener('submit',async e=>{e.preventDefault();
+  const email=$('email').value.trim(),senha=$('senha').value,er=$('erro-entrar'),bt=e.target.querySelector('[type=submit]');
+  if(!email||!senha){er.textContent='Preencha e-mail e senha.';return}
+  bt.disabled=true;er.textContent='';
+  let s;try{s=await token('password',{email,password:senha})}catch(x){s=undefined}finally{bt.disabled=false}
+  if(s===undefined){er.textContent='Sem conexão agora. Tente de novo.';return}
+  if(!s){er.textContent='E-mail ou senha incorretos.';return}
+  guardar(s);$('senha').value='';mostrar(true);iniciar();
+});
+$('sair').onclick=async()=>{
+  try{if(sessao)await pedir(SUPA_URL+'/auth/v1/logout',{method:'POST',headers:{apikey:SUPA_CHAVE,Authorization:'Bearer '+sessao.access_token}})}catch(e){}
+  guardar(null);clearInterval(timer);clientes=[];$('lista').textContent='';mostrar(false);$('erro-entrar').textContent='';$('email').focus();
+};
+function iniciar(){carregar();clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&!$('painel').hidden)carregar()},60000)}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!$('painel').hidden)carregar()});
+if(sessao){mostrar(true);iniciar()}else mostrar(false);
+</script>
+</body>
+</html>
