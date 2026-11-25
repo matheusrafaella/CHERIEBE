@@ -58,6 +58,14 @@ p{margin:0}
 .num b{font:400 2.2rem/1 var(--display);font-variant-numeric:lining-nums}
 .num span{font:500 .68rem/1.3 var(--texto);letter-spacing:.16em;text-transform:uppercase;color:var(--suave)}
 .num[aria-pressed="true"]{border-color:var(--tinta);box-shadow:inset 0 0 0 1px var(--tinta)}
+.busca{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.busca .btn{min-height:auto}
+@media (max-width:420px){.busca .btn{padding:0 12px;letter-spacing:.08em}}
+#novo{position:fixed;inset:0;z-index:50;background:rgba(30,25,21,.6);display:grid;align-items:end;justify-items:center;padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+@media (min-width:640px){#novo{align-items:center}}
+.ficha form{display:grid;gap:18px}
+.marcar{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:.92rem;color:var(--suave);cursor:pointer}
+.marcar input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--tinta)}
 .busca input{width:100%;font:400 1rem var(--texto);padding:12px 14px;border:1px solid var(--fio);background:var(--branco);color:var(--tinta);border-radius:0}
 .busca input:focus-visible{outline:2px solid var(--tinta);outline-offset:0}
 .lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--tinta)}
@@ -131,7 +139,7 @@ p{margin:0}
     <button class="num" type="button" data-f="perto" aria-pressed="false"><b id="n-perto">0</b><span>Perto do presente</span></button>
     <button class="num" type="button" data-f="completo" aria-pressed="false"><b id="n-completo">0</b><span>Cartão completo</span></button>
   </div>
-  <div class="busca"><input id="busca" type="search" placeholder="Buscar por nome ou WhatsApp" aria-label="Buscar por nome ou WhatsApp" autocomplete="off"></div>
+  <div class="busca"><input id="busca" type="search" placeholder="Nome ou WhatsApp" aria-label="Buscar por nome ou WhatsApp" autocomplete="off"><button class="btn cheio" id="abrir-novo" type="button">+ Nova cliente</button></div>
   <ul class="lista" id="lista"></ul>
   <div class="rodape-painel"><span id="contagem"></span><button class="elo" id="atualizar" type="button">Atualizar agora</button></div>
 </div></section>
@@ -158,6 +166,27 @@ p{margin:0}
       <p class="aviso" id="d-ant-msg" role="status"></p>
     </section>
     <a class="btn" id="d-wa" target="_blank" rel="noopener">Abrir conversa no WhatsApp</a>
+  </div>
+</div>
+
+<div id="novo" hidden role="dialog" aria-modal="true" aria-labelledby="n-tit">
+  <div class="ficha">
+    <button class="fechar" id="n-fechar" type="button" aria-label="Fechar">&times;</button>
+    <p class="rotulo" style="color:var(--cera)">Cadastro pela recepção</p>
+    <h2 id="n-tit">Nova cliente</h2>
+    <form id="form-novo" novalidate>
+      <div class="campo"><label for="n-nome">Nome e sobrenome</label><input id="n-nome" type="text" autocomplete="off" autocapitalize="words" required></div>
+      <div class="campo"><label for="n-tel">WhatsApp com DDD</label><input id="n-tel" type="tel" inputmode="tel" autocomplete="off" placeholder="(11) 90000-0000" required></div>
+      <div style="display:grid;gap:10px">
+        <p class="rotulo" style="font-size:.72rem">Selos do cartão de papel</p>
+        <div class="qtds" id="n-qtds" role="group" aria-label="Selos do cartão de papel"></div>
+        <p class="antigo-txt">Deixe em 0 se ela não tinha cartão.</p>
+      </div>
+      <label class="marcar"><input id="n-aceite" type="checkbox"><span>Ela autorizou guardar o nome e o WhatsApp para o cartão fidelidade.</span></label>
+      <button class="btn cheio" type="submit">Cadastrar</button>
+      <p class="aviso erro" id="n-erro" role="alert"></p>
+      <button class="btn" id="n-ver" type="button" hidden>Abrir a ficha dela</button>
+    </form>
   </div>
 </div>
 
@@ -294,10 +323,37 @@ $('d-ant-ok').onclick=async()=>{
   await abrir(nova);
   $('d-ant-msg').className='aviso ok-msg';$('d-ant-msg').textContent=n?'Pronto! '+n+(n===1?' selo do cartão antigo lançado.':' selos do cartão antigo lançados.'):'Lançamento desfeito.';
 };
+/* Nova cliente: a recepção cadastra quem ainda não tem cartão. Quando ela entrar no site com o mesmo WhatsApp, o cartão aparece com estes selos. */
+let novoSelos=0,novoJa=null;
+const limpaTel=v=>{let d=v.replace(/\D/g,'').replace(/^0+/,'');if(d.length>11&&d.startsWith('55'))d=d.slice(2);return d.replace(/^0+/,'')};
+function abrirNovo(){
+  $('form-novo').reset();novoSelos=0;novoJa=null;$('n-erro').textContent='';$('n-ver').hidden=true;
+  const q=$('n-qtds');q.textContent='';
+  for(let n=0;n<=9;n++){const b=document.createElement('button');b.type='button';b.textContent=n;b.setAttribute('aria-pressed',String(n===0));
+    b.onclick=()=>{novoSelos=n;q.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))};q.appendChild(b)}
+  $('novo').hidden=false;$('n-nome').focus();
+}
+function fecharNovo(){$('novo').hidden=true}
+$('abrir-novo').onclick=abrirNovo;$('n-fechar').onclick=fecharNovo;
+$('novo').addEventListener('click',e=>{if(e.target===$('novo'))fecharNovo()});
+$('n-ver').onclick=()=>{const c=clientes.find(x=>x.id===novoJa);fecharNovo();if(c)abrir(c)};
+$('form-novo').addEventListener('submit',async e=>{e.preventDefault();
+  const nome=$('n-nome').value.trim().replace(/\s+/g,' '),tel=limpaTel($('n-tel').value),er=$('n-erro'),bt=e.target.querySelector('[type=submit]');
+  $('n-ver').hidden=true;
+  if(nome.split(' ').length<2){er.textContent='Escreva nome e sobrenome.';$('n-nome').focus();return}
+  if(tel.length<10||tel.length>11){er.textContent='Confira o WhatsApp: DDD e número, 10 ou 11 dígitos.';$('n-tel').focus();return}
+  if(!$('n-aceite').checked){er.textContent='Confirme que ela autorizou o cadastro.';$('n-aceite').focus();return}
+  bt.disabled=true;er.textContent='Salvando...';
+  let r;try{r=await rpc('recepcao_cadastrar',{p_nome:nome,p_telefone:tel,p_selos:novoSelos,p_aceite:true})}catch(x){r=null}finally{bt.disabled=false}
+  if(r&&r.status==='ja_existe'){novoJa=r.id;er.textContent='Esse WhatsApp já tem cartão, no nome de '+r.nome+'.';await carregar();$('n-ver').hidden=false;return}
+  if(!r||r.status!=='ok'){er.textContent=r&&r.status==='nome_invalido'?'Escreva nome e sobrenome.':r&&r.status==='telefone_invalido'?'Confira o WhatsApp: DDD e número.':r&&r.status==='sem_acesso'?'Sem permissão para cadastrar.':'Não foi possível salvar agora. Tente de novo.';return}
+  er.textContent='';await carregar();fecharNovo();
+  const c=clientes.find(x=>x.id===r.id);if(c){await abrir(c);$('d-ant-msg').className='aviso ok-msg';$('d-ant-msg').textContent='Cadastro feito! Quando ela entrar no site com este WhatsApp, o cartão já aparece.'}
+});
 function fecharDetalhe(){$('detalhe').hidden=true}
 $('d-fechar').onclick=fecharDetalhe;
 $('detalhe').addEventListener('click',e=>{if(e.target===$('detalhe'))fecharDetalhe()});
-addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('detalhe').hidden)fecharDetalhe()});
+addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('novo').hidden)fecharNovo();else if(!$('detalhe').hidden)fecharDetalhe()});
 document.querySelectorAll('.num').forEach(b=>b.onclick=()=>{filtro=b.dataset.f;document.querySelectorAll('.num').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));desenhar()});
 $('busca').addEventListener('input',desenhar);
 $('atualizar').onclick=carregar;
