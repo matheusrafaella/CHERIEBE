@@ -106,8 +106,8 @@ p{margin:0}
   <form class="caixa" id="form-entrar" novalidate>
     <p class="rotulo" style="color:var(--cera)">Check-in Cherie</p>
     <h1>Entrar na recepção</h1>
-    <div class="campo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" inputmode="email" required></div>
-    <div class="campo"><label for="senha">Senha</label><input id="senha" type="password" autocomplete="current-password" required></div>
+    <input id="email" type="text" autocomplete="username" value="recepcao@cheriebe.com.br" hidden readonly>
+    <div class="campo"><label for="senha">Senha da recepção</label><input id="senha" type="password" autocomplete="current-password" required></div>
     <button class="btn cheio" type="submit">Entrar</button>
     <p class="aviso erro" id="erro-entrar" role="alert"></p>
   </form>
@@ -139,8 +139,10 @@ p{margin:0}
 </div>
 
 <script>
-/* Login pelo Supabase Auth. Os dados só chegam se o e-mail estiver na tabela equipe (regra no banco). */
+/* Login pelo Supabase Auth com um usuário fixo da recepção: na tela só aparece a senha.
+   A senha é a desse usuário no painel do Supabase (Authentication > Users). Os dados só chegam se o e-mail estiver na tabela equipe. */
 const SUPA_URL='https://bowakhtfopjckwfcgyxu.supabase.co',SUPA_CHAVE='sb_publishable_lp2uSWDaYq-qicSm5ptDxQ_bnh6ewOX',META=10;
+const USUARIO='recepcao@cheriebe.com.br';
 const SESSAO='cheriebe_recepcao_sessao';
 const $=id=>document.getElementById(id);
 let sessao=null,clientes=[],hoje='',filtro='todas',timer=0;
@@ -183,7 +185,7 @@ async function carregar(){
   let r;try{r=await rpc('recepcao_clientes')}catch(e){
     if(e.message==='sessao'){mostrar(false);$('erro-entrar').textContent='Sua sessão terminou. Entre de novo.';return}
     $('atualizado').textContent='Sem conexão agora. Tentando de novo em instantes.';return}
-  if(!r||r.status==='sem_acesso'){guardar(null);mostrar(false);$('erro-entrar').textContent='Este e-mail ainda não tem acesso à recepção.';return}
+  if(!r||r.status==='sem_acesso'){guardar(null);mostrar(false);$('erro-entrar').textContent='A recepção ainda não foi liberada no sistema.';return}
   clientes=r.clientes||[];hoje=r.hoje||'';
   $('n-todas').textContent=clientes.length;
   $('n-hoje').textContent=clientes.filter(c=>c.ultimo===hoje).length;
@@ -244,17 +246,17 @@ $('busca').addEventListener('input',desenhar);
 $('atualizar').onclick=carregar;
 
 $('form-entrar').addEventListener('submit',async e=>{e.preventDefault();
-  const email=$('email').value.trim(),senha=$('senha').value,er=$('erro-entrar'),bt=e.target.querySelector('[type=submit]');
-  if(!email||!senha){er.textContent='Preencha e-mail e senha.';return}
+  const senha=$('senha').value,er=$('erro-entrar'),bt=e.target.querySelector('[type=submit]');
+  if(!senha){er.textContent='Digite a senha.';$('senha').focus();return}
   bt.disabled=true;er.textContent='';
-  let s;try{s=await token('password',{email,password:senha})}catch(x){s=undefined}finally{bt.disabled=false}
+  let s;try{s=await token('password',{email:USUARIO,password:senha})}catch(x){s=undefined}finally{bt.disabled=false}
   if(s===undefined){er.textContent='Sem conexão agora. Tente de novo.';return}
-  if(!s){er.textContent='E-mail ou senha incorretos.';return}
+  if(!s){er.textContent='Senha incorreta.';$('senha').select();return}
   guardar(s);$('senha').value='';mostrar(true);iniciar();
 });
 $('sair').onclick=async()=>{
   try{if(sessao)await pedir(SUPA_URL+'/auth/v1/logout',{method:'POST',headers:{apikey:SUPA_CHAVE,Authorization:'Bearer '+sessao.access_token}})}catch(e){}
-  guardar(null);clearInterval(timer);clientes=[];$('lista').textContent='';mostrar(false);$('erro-entrar').textContent='';$('email').focus();
+  guardar(null);clearInterval(timer);clientes=[];$('lista').textContent='';mostrar(false);$('erro-entrar').textContent='';$('senha').focus();
 };
 function iniciar(){carregar();clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&!$('painel').hidden)carregar()},60000)}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!$('painel').hidden)carregar()});
